@@ -14,31 +14,44 @@ export default function PremiumTiltCard({
     children,
     className = "",
     glareOpacity = 0.15,
-    rotationFactor = 7, // Higher number = less tilt
+    rotationFactor = 7,
 }: PremiumTiltCardProps) {
     const ref = useRef<HTMLDivElement>(null);
 
-    // Mouse position relative to the center of the card
     const x = useMotionValue(0);
     const y = useMotionValue(0);
-
-    // Mouse coordinates relative to the top-left of the card (for glare)
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    // Smooth physics
     const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
     const springX = useSpring(x, springConfig);
     const springY = useSpring(y, springConfig);
 
-    // Transform raw mouse pixel offset into rotations (in degrees)
     const rotateX = useTransform(springY, [-100, 100], [rotationFactor, -rotationFactor]);
     const rotateY = useTransform(springX, [-100, 100], [-rotationFactor, rotationFactor]);
+
+    // Pre-compute glare backgrounds (hooks must always be called)
+    const glareBackground = useTransform(
+        [mouseX, mouseY],
+        ([latestX, latestY]) => `radial-gradient(
+            600px circle at ${latestX}px ${latestY}px, 
+            rgba(255,255,255,${glareOpacity}),
+            transparent 40%
+        )`
+    );
+
+    const borderGlowBackground = useTransform(
+        [mouseX, mouseY],
+        ([latestX, latestY]) => `radial-gradient(
+            400px circle at ${latestX}px ${latestY}px, 
+            rgba(107, 70, 255, 0.4),
+            transparent 40%
+        )`
+    );
 
     const [isHovering, setIsHovering] = useState(false);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-    // Check if the user is on a touch device to disable the physics
     useEffect(() => {
         setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
     }, []);
@@ -47,28 +60,22 @@ export default function PremiumTiltCard({
         if (isTouchDevice || !ref.current) return;
 
         const rect = ref.current.getBoundingClientRect();
-        
-        // Calculate raw pixel offset from center
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         x.set(event.clientX - centerX);
         y.set(event.clientY - centerY);
 
-        // Calculate offset from top-left for the glare overlay
         mouseX.set(event.clientX - rect.left);
         mouseY.set(event.clientY - rect.top);
     }
 
     function handleMouseEnter() {
-        if (!isTouchDevice) {
-            setIsHovering(true);
-        }
+        if (!isTouchDevice) setIsHovering(true);
     }
 
     function handleMouseLeave() {
         if (!isTouchDevice) {
             setIsHovering(false);
-            // Slowly reset back to center
             x.set(0);
             y.set(0);
             mouseX.set(0);
@@ -76,7 +83,8 @@ export default function PremiumTiltCard({
         }
     }
 
-    // Static fallback for mobile/touch devices
+    // For touch devices, render a simple wrapper without tilt — 
+    // but keep all hooks above so hook count stays constant.
     if (isTouchDevice) {
         return (
             <div className={`relative ${className}`}>
@@ -98,7 +106,6 @@ export default function PremiumTiltCard({
             }}
             className={`relative group ${className}`}
         >
-            {/* The actual content (preserves 3d context so inner items can pop out) */}
             <div style={{ transform: "translateZ(30px)" }} className="w-full h-full relative z-10">
                 {children}
             </div>
@@ -108,34 +115,20 @@ export default function PremiumTiltCard({
                 className="pointer-events-none absolute inset-0 z-20 rounded-[inherit] transition-opacity duration-300"
                 style={{
                     opacity: isHovering ? 1 : 0,
-                    background: useTransform(
-                        [mouseX, mouseY],
-                        ([latestX, latestY]) => `radial-gradient(
-                            600px circle at ${latestX}px ${latestY}px, 
-                            rgba(255,255,255,${glareOpacity}),
-                            transparent 40%
-                        )`
-                    ),
+                    background: glareBackground,
                     mixBlendMode: "overlay",
                 }}
             />
 
-            {/* Subtle Gradient Border Glow that follows mouse */}
+            {/* Subtle Gradient Border Glow */}
             <motion.div
                 className="pointer-events-none absolute -inset-px z-30 rounded-[inherit] transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                 style={{
-                     background: useTransform(
-                        [mouseX, mouseY],
-                        ([latestX, latestY]) => `radial-gradient(
-                            400px circle at ${latestX}px ${latestY}px, 
-                            rgba(107, 70, 255, 0.4),
-                            transparent 40%
-                        )`
-                    ),
+                    background: borderGlowBackground,
                     WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
                     WebkitMaskComposite: "xor",
                     maskComposite: "exclude",
-                    padding: "1px", // Border thickness
+                    padding: "1px",
                 }}
             />
         </motion.div>
