@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* ─── Vaulta-Inspired Color Palette ─── */
+  --color-dark: #191919;
+  --color-dark-light: #333333;
+  --color-muted: #666666;
+  --color-muted-light: #999999;
+  --color-surface: #FFFFFF;
+  --color-lavender: #F5F3FF;
+  --color-lavender-dark: #EDE9FE;
+  --color-lavender-light: #FAF8FF;
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+  --color-purple: #6B46FF;
+  --color-purple-dark: #5835DB;
+  --color-purple-light: #9073FF;
+  --color-purple-muted: #A78BFA;
+  --color-emerald: #059669;
+  --color-emerald-light: #34D399;
+
+  /* Fonts */
+  --font-heading: var(--font-inter-tight);
+  --font-body: var(--font-inter-tight);
+  --font-serif: var(--font-instrument);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-dark);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), system-ui, sans-serif;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-lavender-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-light);
+}
+
+/* ─── Premium Glass Card (Mobile-first Redesign) ─── */
+.card-premium {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.4) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 8px 32px -4px rgba(107, 70, 255, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color 0.3s ease;
+}
+
+.card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(107, 70, 255, 0), rgba(107, 70, 255, 0.5), rgba(107, 70, 255, 0));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.card-premium:hover {
+  box-shadow:
+    0 20px 48px -12px rgba(107, 70, 255, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+  border-color: rgba(107, 70, 255, 0.3);
+}
+
+.card-premium:hover::before {
+  opacity: 1;
+}
+
+/* ─── Icon Container ─── */
+.icon-glow {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.icon-glow::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 1rem;
+  background: radial-gradient(circle, rgba(107, 70, 255, 0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.group:hover .icon-glow::after {
+  opacity: 1;
+}
+
+/* ─── Gradient Text ─── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-purple), var(--color-purple-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Pill Badge ─── */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-purple);
+  background: var(--color-lavender);
+  border: 1px solid var(--color-lavender-dark);
+  border-radius: 9999px;
+  padding: 0.5rem 1.25rem;
+}
+
+/* ─── Primary Button (Purple Gradient Pill) ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--color-purple), var(--color-purple-light));
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 30px rgba(107, 70, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-primary:hover::after {
+  left: 100%;
+}
+
+/* ─── Secondary Button (Outline Pill) ─── */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--color-dark);
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  border: 1.5px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-purple);
+  color: var(--color-purple);
+  background: var(--color-lavender);
+  transform: translateY(-2px);
+}
+
+/* ─── Glow Button (legacy) ─── */
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-glow:hover::after {
+  left: 100%;
+}
+
+/* ─── Marquee Animation ─── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ─── HVAC Fan Spin Animation ─── */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-slow-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 25s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 35s linear infinite;
+}
+
+/* ─── Section Divider ─── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-purple-light), transparent);
+  opacity: 0.2;
+}
+
+/* ─── Serif Italic Accent ─── */
+.serif-accent {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ─── Glass effect (light) ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+}
+
+/* ─── Purple Gradient Background ─── */
+.bg-purple-gradient {
+  background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-purple-light) 100%);
+}
+
+/* ─── Subtle radial glow ─── */
+.glow-purple {
+  position: relative;
+}
+
+.glow-purple::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(107, 70, 255, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
