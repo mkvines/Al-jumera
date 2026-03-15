@@ -5,8 +5,8 @@ export const COMPANY = {
     description:
         "Specialized in servicing and new installations for Air Conditioning and HVAC systems. Providing quality products and services with a professional team across Saudi Arabia.",
     yearsFounded: "25+",
-    email1: "contact@aljumerah.com",
-    email2: "shoaib@aljumerah.com",
+    email1: "contact@aljumerahcontracting.com",
+    email2: "shoaib@aljumerahcontracting.com",
     phone: "+966 500288439",
     phone2: "+966 562411412",
     contactName2: "Shoaib Rehman",
