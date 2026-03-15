@@ -57,13 +57,12 @@ export default function Footer() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
                         {/* Company (takes 4 cols on lg) */}
                         <div className="lg:col-span-4">
-                            <div className="flex items-center gap-3 mb-6">
+                            <div className="flex items-center gap-3 mb-8 h-16 md:h-20 w-[240px] md:w-[280px] relative">
                                 <Image 
                                     src="/images/logo.png" 
                                     alt="AJ·C Contracting Logo" 
-                                    width={200} 
-                                    height={60} 
-                                    className="h-12 md:h-16 w-auto object-contain scale-110 md:scale-125 origin-left"
+                                    fill
+                                    className="object-contain object-left scale-150 origin-left"
                                 />
                             </div>
                             <p className="text-muted text-[13px] md:text-sm leading-relaxed mt-5 md:mt-4 max-w-[280px] md:max-w-none">

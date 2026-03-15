@@ -42,14 +42,16 @@ export default function Header() {
                 >
                     <div className="flex items-center justify-between h-[56px] md:h-[60px] px-4 md:px-6">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2.5 shrink-0">
-                            <Image 
-                                src="/images/logo.png" 
-                                alt="AJ·C Contracting Logo" 
-                                width={180} 
-                                height={54} 
-                                className="h-10 md:h-12 w-auto object-contain scale-110 md:scale-125 origin-left"
-                            />
+                        <Link href="/" className="flex items-center gap-2.5 shrink-0 h-full py-1">
+                            <div className="relative h-full w-[160px] md:w-[200px]">
+                                <Image 
+                                    src="/images/logo.png" 
+                                    alt="AJ·C Contracting Logo" 
+                                    fill
+                                    className="object-contain object-left scale-150 origin-left"
+                                    priority
+                                />
+                            </div>
                         </Link>
 
                         {/* Desktop nav links — centered */}
@@ -128,15 +130,16 @@ export default function Header() {
                         <Link
                             href="/"
                             onClick={() => setIsOpen(false)}
-                            className="flex items-center gap-2.5"
+                            className="flex items-center gap-2.5 h-full py-2"
                         >
-                            <Image 
-                                src="/images/logo.png" 
-                                alt="AJ·C Contracting Logo" 
-                                width={180} 
-                                height={54} 
-                                className="h-10 w-auto object-contain scale-110 origin-left"
-                            />
+                            <div className="relative h-full w-[160px]">
+                                <Image 
+                                    src="/images/logo.png" 
+                                    alt="AJ·C Contracting Logo" 
+                                    fill
+                                    className="object-contain object-left scale-150 origin-left"
+                                />
+                            </div>
                         </Link>
                         <button
                             onClick={() => setIsOpen(false)}
