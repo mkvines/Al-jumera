@@ -57,18 +57,14 @@ export default function Footer() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
                         {/* Company (takes 4 cols on lg) */}
                         <div className="lg:col-span-4">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="w-12 h-12 md:w-11 md:h-11 bg-gradient-to-br from-purple to-purple-dark rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-purple/30 border border-purple-light/20">
-                                    AJ
-                                </div>
-                                <div>
-                                    <div className="font-bold text-[15px] md:text-sm leading-tight tracking-wide text-dark">
-                                        AL-JUMERAH ATQAAN
-                                    </div>
-                                    <div className="text-purple text-[11px] md:text-xs tracking-widest uppercase font-semibold mt-0.5">
-                                        Contracting Est.
-                                    </div>
-                                </div>
+                            <div className="flex items-center gap-3 mb-6">
+                                <Image 
+                                    src="/images/logo.png" 
+                                    alt="AJ·C Contracting Logo" 
+                                    width={200} 
+                                    height={60} 
+                                    className="h-12 md:h-16 w-auto object-contain scale-110 md:scale-125 origin-left"
+                                />
                             </div>
                             <p className="text-muted text-[13px] md:text-sm leading-relaxed mt-5 md:mt-4 max-w-[280px] md:max-w-none">
                                 {COMPANY.description}
@@ -149,6 +145,20 @@ export default function Footer() {
                                             <Phone size={14} className="text-purple group-hover:text-white transition-colors" />
                                         </div>
                                         <span className="font-medium">{COMPANY.phone}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        href={`tel:${COMPANY.phone2}`}
+                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rounded-lg hover:bg-white/50"
+                                    >
+                                        <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark group-hover:bg-purple group-hover:border-purple transition-colors">
+                                            <Phone size={14} className="text-purple group-hover:text-white transition-colors" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="font-medium">{COMPANY.phone2}</span>
+                                            <span className="text-[11px] text-muted-light mt-0.5 leading-none">{COMPANY.contactName2}</span>
+                                        </div>
                                     </a>
                                 </li>
                                 <li className="flex items-start gap-3 md:gap-3 text-[13px] md:text-sm text-muted p-2 -ml-2 leading-relaxed font-medium">

@@ -67,6 +67,7 @@ export default function ContactPage() {
                                                 Call Us
                                             </div>
                                             <div className="text-muted text-sm">{COMPANY.phone}</div>
+                                            <div className="text-muted text-sm">{COMPANY.phone2} <span className="text-[11px] opacity-70">({COMPANY.contactName2})</span></div>
                                         </div>
                                     </a>
                                 </StaggerItem>

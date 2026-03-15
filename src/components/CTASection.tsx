@@ -49,7 +49,7 @@ export default function CTASection() {
                                     {/* WhatsApp */}
                                     <StaggerItem animation="slide-right">
                                         <a
-                                            href={`https://wa.me/966500288439?text=Hello, I'd like to request an HVAC quote.`}
+                                            href={`https://wa.me/966562411412?text=Hello, I'd like to request an HVAC quote.`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="flex items-center gap-4 bg-white/10 hover:bg-white/15 border border-white/10 hover:border-white/25 rounded-2xl px-6 py-5 text-white transition-all duration-300 group"
@@ -59,7 +59,7 @@ export default function CTASection() {
                                             </div>
                                             <div className="flex-1">
                                                 <div className="font-semibold text-sm">WhatsApp Us</div>
-                                                <div className="text-white/50 text-sm">{COMPANY.phone}</div>
+                                                <div className="text-white/50 text-sm">{COMPANY.phone2} ({COMPANY.contactName2})</div>
                                             </div>
                                             <ArrowRight size={18} className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all" />
                                         </a>

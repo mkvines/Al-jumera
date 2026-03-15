@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
@@ -42,22 +43,13 @@ export default function Header() {
                     <div className="flex items-center justify-between h-[56px] md:h-[60px] px-4 md:px-6">
                         {/* Logo */}
                         <Link href="/" className="flex items-center gap-2.5 shrink-0">
-                            <div
-                                className="w-8 h-8 flex items-center justify-center text-white"
-                                style={{
-                                    background: "linear-gradient(299deg, #A58FFF 0%, #3300FF 55%, #A58FFF 100%)",
-                                    borderRadius: "8px",
-                                }}
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" opacity="0.9" />
-                                    <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
-                            <span className="text-[#191919] font-semibold text-base tracking-tight hidden sm:block">
-                                Al-Jumerah
-                            </span>
+                            <Image 
+                                src="/images/logo.png" 
+                                alt="AJ·C Contracting Logo" 
+                                width={180} 
+                                height={54} 
+                                className="h-10 md:h-12 w-auto object-contain scale-110 md:scale-125 origin-left"
+                            />
                         </Link>
 
                         {/* Desktop nav links — centered */}
@@ -138,22 +130,13 @@ export default function Header() {
                             onClick={() => setIsOpen(false)}
                             className="flex items-center gap-2.5"
                         >
-                            <div
-                                className="w-8 h-8 flex items-center justify-center text-white"
-                                style={{
-                                    background: "linear-gradient(299deg, #A58FFF 0%, #3300FF 55%, #A58FFF 100%)",
-                                    borderRadius: "8px",
-                                }}
-                            >
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                    <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="white" opacity="0.9" />
-                                    <path d="M2 17L12 22L22 17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M2 12L12 17L22 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
-                            <span className="text-[#191919] font-semibold text-base tracking-tight">
-                                Al-Jumerah
-                            </span>
+                            <Image 
+                                src="/images/logo.png" 
+                                alt="AJ·C Contracting Logo" 
+                                width={180} 
+                                height={54} 
+                                className="h-10 w-auto object-contain scale-110 origin-left"
+                            />
                         </Link>
                         <button
                             onClick={() => setIsOpen(false)}

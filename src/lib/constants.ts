@@ -5,9 +5,11 @@ export const COMPANY = {
     description:
         "Specialized in servicing and new installations for Air Conditioning and HVAC systems. Providing quality products and services with a professional team across Saudi Arabia.",
     yearsFounded: "25+",
-    email1: "contact@Aljumairahcontracting.com",
-    email2: "shoaib@Aljumairahcontracting.com",
+    email1: "contact@aljumerah.com",
+    email2: "shoaib@aljumerah.com",
     phone: "+966 500288439",
+    phone2: "+966 562411412",
+    contactName2: "Shoaib Rehman",
     address: "Prince M. Bin Saud Street, P.O. Box 3352, Code 11432, Kingdom of Saudi Arabia",
     mapUrl: "https://www.google.com/maps?q=Prince+M.+Bin+Saud+Street,+Riyadh,+Saudi+Arabia",
 } as const;
