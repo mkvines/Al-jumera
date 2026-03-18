@@ -75,4 +75,14 @@ export const projects: Project[] = [
         tags: ["Ductwork", "Ventilation"],
         image: "/images/projects/cuticles.webp",
     },
+    {
+        id: "ejada-office",
+        title: "EJADA OFFICE 6 floor building",
+        location: "Saudi Arabia",
+        scope:
+            "SUPPLY AND INSTALLATION OF VRF SYSTEM (Carrier brand)",
+        tags: ["VRF", "Carrier"],
+        image: "/images/projects/ejadah.webp",
+    },
 ];
+
