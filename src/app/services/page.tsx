@@ -7,46 +7,46 @@ import { services } from "@/data/services";
 import { Wrench, ShieldCheck, Headphones } from "lucide-react";
 import { StaggerContainer, StaggerItem } from "@/components/animations";
 import SectionHeader from "@/components/SectionHeader";
+import { useLanguage } from "@/lib/i18n";
+
+const introKeys = [
+    { icon: Wrench, titleKey: "services.installation.title", descKey: "services.installation.desc" },
+    { icon: ShieldCheck, titleKey: "services.maintenance.title", descKey: "services.maintenance.desc" },
+    { icon: Headphones, titleKey: "services.consultation.title", descKey: "services.consultation.desc" },
+];
+
+const processStepKeys = [
+    { step: "01", titleKey: "services.step1.title", descKey: "services.step1.desc" },
+    { step: "02", titleKey: "services.step2.title", descKey: "services.step2.desc" },
+    { step: "03", titleKey: "services.step3.title", descKey: "services.step3.desc" },
+    { step: "04", titleKey: "services.step4.title", descKey: "services.step4.desc" },
+];
 
 export default function ServicesPage() {
+    const { t, locale } = useLanguage();
+
     return (
         <>
             <Hero
-                title="Our HVAC Services"
-                subtitle="What We Offer"
-                description="Comprehensive climate control solutions — from design and installation to maintenance and servicing."
+                title={t("services.hero.title")}
+                subtitle={t("services.hero.subtitle")}
+                description={t("services.hero.desc")}
             />
 
             {/* Intro */}
             <section className="py-20 px-6 bg-lavender-light">
                 <div className="max-w-6xl mx-auto">
                     <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                        {[
-                            {
-                                icon: Wrench,
-                                title: "Installation",
-                                desc: "Complete HVAC system design and installation for new constructions and retrofits.",
-                            },
-                            {
-                                icon: ShieldCheck,
-                                title: "Maintenance",
-                                desc: "Preventive and corrective maintenance programs to ensure peak system performance.",
-                            },
-                            {
-                                icon: Headphones,
-                                title: "Consultation",
-                                desc: "Expert HVAC consulting for system selection, energy optimization, and compliance.",
-                            },
-                        ].map((item) => {
+                        {introKeys.map((item) => {
                             const Icon = item.icon;
                             return (
-                                <StaggerItem key={item.title}>
+                                <StaggerItem key={item.titleKey}>
                                     <div className="card-premium p-8 text-center group">
                                         <div className="w-16 h-16 mx-auto bg-lavender group-hover:bg-lavender-dark rounded-2xl flex items-center justify-center mb-5 icon-glow relative transition-all duration-300">
                                             <Icon className="w-8 h-8 text-purple" />
                                         </div>
-                                        <h3 className="text-lg font-bold text-dark mb-2 group-hover:text-purple transition-colors duration-300">{item.title}</h3>
-                                        <p className="text-muted text-sm leading-relaxed">{item.desc}</p>
+                                        <h3 className="text-lg font-bold text-dark mb-2 group-hover:text-purple transition-colors duration-300">{t(item.titleKey)}</h3>
+                                        <p className="text-muted text-sm leading-relaxed">{t(item.descKey)}</p>
                                     </div>
                                 </StaggerItem>
                             );
@@ -54,9 +54,9 @@ export default function ServicesPage() {
                     </StaggerContainer>
 
                     <SectionHeader
-                        label="Our Specializations"
-                        title="HVAC Systems We Install & Service"
-                        description="From precision-controlled clean rooms to large-scale industrial cooling — we have the expertise to handle every HVAC requirement."
+                        label={t("services.specializations")}
+                        title={t("services.systemsTitle")}
+                        description={t("services.systemsDesc")}
                     />
 
                     <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -73,23 +73,20 @@ export default function ServicesPage() {
             <section className="py-20 px-6 bg-white">
                 <div className="max-w-6xl mx-auto">
                     <SectionHeader
-                        label="How We Work"
-                        title="Our Process"
+                        label={t("process.label")}
+                        title={t("services.process")}
                     />
                     <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-8" staggerDelay={0.15}>
-                        {[
-                            { step: "01", title: "Consultation", desc: "We assess your needs, space, and requirements" },
-                            { step: "02", title: "Design", desc: "Our engineers design the optimal HVAC solution" },
-                            { step: "03", title: "Installation", desc: "Professional installation by certified technicians" },
-                            { step: "04", title: "Support", desc: "Ongoing maintenance and 24/7 support services" },
-                        ].map((item) => (
+                        {processStepKeys.map((item) => (
                             <StaggerItem key={item.step}>
                                 <div className="text-center relative group">
                                     <div className="text-6xl font-extrabold text-gradient opacity-20 mb-4 group-hover:opacity-40 transition-opacity duration-300">{item.step}</div>
-                                    <h3 className="text-lg font-bold text-dark mb-2 group-hover:text-purple transition-colors duration-300">{item.title}</h3>
-                                    <p className="text-muted text-sm leading-relaxed">{item.desc}</p>
+                                    <h3 className="text-lg font-bold text-dark mb-2 group-hover:text-purple transition-colors duration-300">{t(item.titleKey)}</h3>
+                                    <p className="text-muted text-sm leading-relaxed">{t(item.descKey)}</p>
                                     {item.step !== "04" && (
-                                        <div className="hidden md:block absolute top-10 -right-4 w-8 text-purple/30 text-2xl">→</div>
+                                        <div className="hidden md:block absolute top-10 -right-4 rtl:-left-4 rtl:right-auto w-8 text-purple/30 text-2xl">
+                                            {locale === "ar" ? "←" : "→"}
+                                        </div>
                                     )}
                                 </div>
                             </StaggerItem>
@@ -99,8 +96,8 @@ export default function ServicesPage() {
             </section>
 
             <CTABanner
-                title="Need an HVAC Solution?"
-                description="Let our experts design the perfect climate control system for your facility. Get a free consultation today."
+                title={t("services.ctaTitle")}
+                description={t("services.ctaDesc")}
             />
         </>
     );

@@ -4,8 +4,14 @@ import Link from "next/link";
 import { Phone, MessageCircle, Mail, ArrowRight } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
 import { AnimateOnScroll, StaggerContainer, StaggerItem } from "./animations";
+import { useLanguage } from "@/lib/i18n";
 
 export default function CTASection() {
+    const { t, locale } = useLanguage();
+    const ArrowIcon = locale === "ar" ? ({ size, className }: { size: number; className: string }) => (
+        <ArrowRight size={size} className={`${className} rotate-180`} />
+    ) : ArrowRight;
+
     return (
         <section className="py-20 px-6">
             <AnimateOnScroll animation="scale-in" duration={0.7}>
@@ -29,17 +35,16 @@ export default function CTASection() {
                                 <AnimateOnScroll animation="slide-left" delay={0.1}>
                                     <div>
                                         <span className="text-white/70 text-sm font-semibold tracking-[0.25em] uppercase">
-                                            Get Started Today
+                                            {t("cta.getStarted")}
                                         </span>
                                         <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-4 tracking-tight leading-tight">
-                                            Get a Fast{" "}
-                                            <span className="serif-accent">Quotation</span>
+                                            {t("cta.fastQuote")}{" "}
+                                            <span className="serif-accent">{t("cta.quotation")}</span>
                                             <br />
-                                            <span className="text-white/60">for Your HVAC Project</span>
+                                            <span className="text-white/60">{t("cta.forHvac")}</span>
                                         </h2>
                                         <p className="text-white/50 leading-relaxed max-w-md">
-                                            Contact us via phone or WhatsApp for an immediate response.
-                                            Our team is ready to assess your needs and provide a competitive quote.
+                                            {t("cta.desc")}
                                         </p>
                                     </div>
                                 </AnimateOnScroll>
@@ -58,10 +63,10 @@ export default function CTASection() {
                                                 <MessageCircle size={22} className="text-emerald-light" />
                                             </div>
                                             <div className="flex-1">
-                                                <div className="font-semibold text-sm">WhatsApp Us</div>
+                                                <div className="font-semibold text-sm">{t("cta.whatsapp")}</div>
                                                 <div className="text-white/50 text-sm">{COMPANY.phone2} ({COMPANY.contactName2})</div>
                                             </div>
-                                            <ArrowRight size={18} className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all" />
+                                            <ArrowIcon size={18} className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-all" />
                                         </a>
                                     </StaggerItem>
 
@@ -75,10 +80,10 @@ export default function CTASection() {
                                                 <Phone size={22} className="text-purple-light" />
                                             </div>
                                             <div className="flex-1">
-                                                <div className="font-semibold text-sm">Call Us Directly</div>
+                                                <div className="font-semibold text-sm">{t("cta.call")}</div>
                                                 <div className="text-white/50 text-sm">{COMPANY.phone}</div>
                                             </div>
-                                            <ArrowRight size={18} className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all" />
+                                            <ArrowIcon size={18} className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-all" />
                                         </a>
                                     </StaggerItem>
 
@@ -92,10 +97,10 @@ export default function CTASection() {
                                                 <Mail size={22} className="text-white/70" />
                                             </div>
                                             <div className="flex-1">
-                                                <div className="font-semibold text-sm">Email Us</div>
+                                                <div className="font-semibold text-sm">{t("cta.email")}</div>
                                                 <div className="text-white/50 text-sm">{COMPANY.email1}</div>
                                             </div>
-                                            <ArrowRight size={18} className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 transition-all" />
+                                            <ArrowIcon size={18} className="text-white/30 group-hover:text-white/60 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-all" />
                                         </a>
                                     </StaggerItem>
 
@@ -105,7 +110,7 @@ export default function CTASection() {
                                             href="/contact"
                                             className="block text-center bg-white text-purple hover:text-purple-dark px-8 py-4 rounded-full text-base font-semibold tracking-wide transition-all duration-300 hover:shadow-xl hover:shadow-white/20 hover:-translate-y-0.5 mt-6"
                                         >
-                                            Request a Detailed Quote →
+                                            {t("cta.detailedQuote")}
                                         </Link>
                                     </StaggerItem>
                                 </StaggerContainer>

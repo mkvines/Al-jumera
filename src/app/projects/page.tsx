@@ -5,14 +5,17 @@ import ProjectCard from "@/components/ProjectCard";
 import CTABanner from "@/components/CTABanner";
 import { projects } from "@/data/projects";
 import { AnimateOnScroll, StaggerContainer, StaggerItem } from "@/components/animations";
+import { useLanguage } from "@/lib/i18n";
 
 export default function ProjectsPage() {
+    const { t } = useLanguage();
+
     return (
         <>
             <Hero
-                title="Our Project Portfolio"
-                subtitle="Our Work"
-                description="Delivering precision HVAC solutions for Saudi Arabia's most demanding environments."
+                title={t("projects.hero.title")}
+                subtitle={t("projects.hero.subtitle")}
+                description={t("projects.hero.desc")}
             />
 
             {/* Projects Grid */}
@@ -21,14 +24,14 @@ export default function ProjectsPage() {
                     {/* Stats bar */}
                     <StaggerContainer className="flex flex-wrap justify-center gap-8 mb-14" staggerDelay={0.15}>
                         {[
-                            { value: `${projects.length}`, label: "Showcase Projects" },
-                            { value: "3+", label: "Cities Served" },
-                            { value: "100%", label: "Delivered On Time" },
+                            { value: `${projects.length}`, labelKey: "projects.showcase" },
+                            { value: "3+", labelKey: "projects.cities" },
+                            { value: "100%", labelKey: "projects.onTime" },
                         ].map((stat) => (
-                            <StaggerItem key={stat.label} animation="scale-in">
+                            <StaggerItem key={stat.labelKey} animation="scale-in">
                                 <div className="text-center group cursor-default">
                                     <div className="text-3xl md:text-4xl font-extrabold text-dark group-hover:text-purple transition-colors duration-300">{stat.value}</div>
-                                    <div className="text-muted text-sm font-medium">{stat.label}</div>
+                                    <div className="text-muted text-sm font-medium">{t(stat.labelKey)}</div>
                                 </div>
                             </StaggerItem>
                         ))}
@@ -48,9 +51,9 @@ export default function ProjectsPage() {
             <section className="py-16 px-6 bg-white">
                 <div className="max-w-6xl mx-auto text-center">
                     <AnimateOnScroll animation="fade-up">
-                        <span className="pill-badge">Trusted By</span>
+                        <span className="pill-badge">{t("projects.trustedBy")}</span>
                         <h2 className="text-2xl md:text-3xl font-bold text-dark mt-4 mb-10 tracking-tight">
-                            Our Valued Clients
+                            {t("projects.valuedClients")}
                         </h2>
                     </AnimateOnScroll>
                     <StaggerContainer className="flex flex-wrap justify-center gap-4">
@@ -66,9 +69,9 @@ export default function ProjectsPage() {
             </section>
 
             <CTABanner
-                title="Have a Similar Project?"
-                description="Let us engineer the right HVAC solution for your building. Contact us for a free site assessment."
-                buttonLabel="Discuss Your Project"
+                title={t("projects.ctaTitle")}
+                description={t("projects.ctaDesc")}
+                buttonLabel={t("projects.ctaButton")}
             />
         </>
     );

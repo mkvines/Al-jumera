@@ -8,14 +8,28 @@ import { BRANDS } from "@/lib/constants";
 import Image from "next/image";
 import { CheckCircle, Target, Eye, Wrench } from "lucide-react";
 import { AnimateOnScroll, StaggerContainer, StaggerItem } from "@/components/animations";
+import { useLanguage } from "@/lib/i18n";
+
+const valuesKeys = [
+    { icon: Target, titleKey: "about.mission.title", descKey: "about.mission.desc" },
+    { icon: Eye, titleKey: "about.vision.title", descKey: "about.vision.desc" },
+    { icon: Wrench, titleKey: "about.approach.title", descKey: "about.approach.desc" },
+];
+
+const whyKeys = [
+    "about.why1", "about.why2", "about.why3",
+    "about.why4", "about.why5", "about.why6",
+];
 
 export default function AboutPage() {
+    const { t } = useLanguage();
+
     return (
         <>
             <Hero
-                title="About AL-JUMERAH ATQAAN"
-                subtitle="Our Story"
-                description="25+ years of engineering comfort, reliability, and excellence across the Kingdom of Saudi Arabia."
+                title={t("about.hero.title")}
+                subtitle={t("about.hero.subtitle")}
+                description={t("about.hero.desc")}
             />
 
             {/* Company Story */}
@@ -25,66 +39,31 @@ export default function AboutPage() {
                         {/* Text */}
                         <AnimateOnScroll animation="slide-left" duration={0.7}>
                             <div>
-                                <span className="pill-badge">Our Journey</span>
+                                <span className="pill-badge">{t("about.journey")}</span>
                                 <h2 className="text-3xl md:text-4xl font-bold text-dark mt-4 mb-6 tracking-tight">
-                                    Building a Legacy in HVAC Excellence
+                                    {t("about.legacyTitle")}
                                 </h2>
                                 <div className="space-y-4 text-muted leading-relaxed">
-                                    <p>
-                                        AL-JUMERAH ATQAAN CONTRACTING EST. was founded with a clear mission:
-                                        to bring world-class air conditioning and HVAC solutions to Saudi Arabia.
-                                        Over the past 25 years, we have grown from a small local operation into
-                                        one of the most trusted HVAC contractors in the Kingdom.
-                                    </p>
-                                    <p>
-                                        Our team of certified professionals specializes in the servicing and
-                                        new installation of comprehensive HVAC systems — from air cooled chillers
-                                        and air handling units to advanced VRV/VRF systems and precision-controlled
-                                        ventilation.
-                                    </p>
-                                    <p>
-                                        We are proud to partner with the world&apos;s leading HVAC brands including
-                                        TRANE, DAIKIN, Carrier, LG, Gree, YORK, and Zamil. These partnerships
-                                        enable us to deliver cutting-edge technology backed by manufacturer
-                                        warranties and support.
-                                    </p>
-                                    <p>
-                                        Our portfolio spans royal palaces, government institutions, universities,
-                                        hospitals, commercial warehouses, and showrooms — each project reflecting
-                                        our commitment to quality, precision, and client satisfaction.
-                                    </p>
+                                    <p>{t("about.p1")}</p>
+                                    <p>{t("about.p2")}</p>
+                                    <p>{t("about.p3")}</p>
+                                    <p>{t("about.p4")}</p>
                                 </div>
                             </div>
                         </AnimateOnScroll>
 
                         {/* Values */}
                         <StaggerContainer className="space-y-6" staggerDelay={0.15}>
-                            {[
-                                {
-                                    icon: Target,
-                                    title: "Our Mission",
-                                    desc: "To deliver world-class HVAC solutions with professional expertise, ensuring optimal comfort and energy efficiency for every client.",
-                                },
-                                {
-                                    icon: Eye,
-                                    title: "Our Vision",
-                                    desc: "To be Saudi Arabia's most trusted HVAC contractor — known for quality, reliability, and innovation in climate control engineering.",
-                                },
-                                {
-                                    icon: Wrench,
-                                    title: "Our Approach",
-                                    desc: "Every project begins with understanding the client's needs. We engineer solutions tailored to the building, climate, and budget — with zero compromise on quality.",
-                                },
-                            ].map((item) => {
+                            {valuesKeys.map((item) => {
                                 const Icon = item.icon;
                                 return (
-                                    <StaggerItem key={item.title} animation="slide-right">
+                                    <StaggerItem key={item.titleKey} animation="slide-right">
                                         <div className="card-premium p-8 group">
                                             <div className="w-12 h-12 bg-lavender group-hover:bg-lavender-dark rounded-xl flex items-center justify-center mb-4 transition-all duration-300 icon-glow relative">
                                                 <Icon className="w-6 h-6 text-purple" />
                                             </div>
-                                            <h3 className="text-xl font-bold text-dark mb-2 group-hover:text-purple transition-colors duration-300">{item.title}</h3>
-                                            <p className="text-muted text-sm leading-relaxed">{item.desc}</p>
+                                            <h3 className="text-xl font-bold text-dark mb-2 group-hover:text-purple transition-colors duration-300">{t(item.titleKey)}</h3>
+                                            <p className="text-muted text-sm leading-relaxed">{t(item.descKey)}</p>
                                         </div>
                                     </StaggerItem>
                                 );
@@ -105,25 +84,18 @@ export default function AboutPage() {
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-14">
                         <AnimateOnScroll animation="fade-up">
-                            <span className="pill-badge">Why Us</span>
+                            <span className="pill-badge">{t("home.why.label")}</span>
                             <h2 className="text-3xl md:text-4xl font-bold text-dark mt-4 tracking-tight">
-                                Why Choose AL-JUMERAH ATQAAN
+                                {t("about.whyChoose")}
                             </h2>
                         </AnimateOnScroll>
                     </div>
                     <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[
-                            "25+ years of proven HVAC expertise",
-                            "Partnerships with 7+ global brands",
-                            "Government & institutional project experience",
-                            "Licensed and certified professionals",
-                            "End-to-end service: design to maintenance",
-                            "Competitive pricing with premium quality",
-                        ].map((item) => (
-                            <StaggerItem key={item}>
+                        {whyKeys.map((key) => (
+                            <StaggerItem key={key}>
                                 <div className="flex items-start gap-4 card-premium p-6 group">
                                     <CheckCircle size={20} className="text-purple mt-0.5 shrink-0 group-hover:scale-110 transition-transform duration-300" />
-                                    <span className="text-dark font-medium text-sm group-hover:text-purple-dark transition-colors duration-300">{item}</span>
+                                    <span className="text-dark font-medium text-sm group-hover:text-purple-dark transition-colors duration-300">{t(key)}</span>
                                 </div>
                             </StaggerItem>
                         ))}
@@ -136,9 +108,9 @@ export default function AboutPage() {
                 <div className="max-w-6xl mx-auto">
                     <AnimateOnScroll animation="fade-up">
                         <div className="text-center mb-10">
-                            <span className="pill-badge">Our Partners</span>
+                            <span className="pill-badge">{t("about.partners")}</span>
                             <h2 className="text-2xl md:text-3xl font-bold text-dark mt-4 tracking-tight">
-                                Brands We Specialize In
+                                {t("footer.brandsTitle")}
                             </h2>
                         </div>
                     </AnimateOnScroll>
@@ -164,8 +136,8 @@ export default function AboutPage() {
             </section>
 
             <CTABanner
-                title="Let&apos;s Build Together"
-                description="Bring your next HVAC project to life with our experienced team. Contact us for a free consultation."
+                title={t("about.ctaTitle")}
+                description={t("about.ctaDesc")}
             />
         </>
     );

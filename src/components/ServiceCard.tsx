@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Snowflake,
     Wind,
@@ -13,6 +15,7 @@ import {
 } from "lucide-react";
 import type { Service } from "@/data/services";
 import PremiumTiltCard from "./PremiumTiltCard";
+import { useLanguage } from "@/lib/i18n";
 
 const iconMap: Record<string, React.ElementType> = {
     Snowflake,
@@ -28,8 +31,23 @@ const iconMap: Record<string, React.ElementType> = {
     Smartphone,
 };
 
+// Map service id → translation key prefix
+const serviceKeyMap: Record<string, string> = {
+    "vrv-vrf": "service.vrv",
+    "package-unit": "service.package",
+    "chillers-ahu": "service.chillers",
+    "ducting-ventilation": "service.ducting",
+    "exhaust-fahu": "service.exhaust",
+    "maintenance": "service.maintenance",
+};
+
 export default function ServiceCard({ service }: { service: Service }) {
     const Icon = iconMap[service.icon] || Box;
+    const { t, locale } = useLanguage();
+    
+    const keyPrefix = serviceKeyMap[service.id];
+    const title = keyPrefix ? t(`${keyPrefix}.title`) : service.title;
+    const description = keyPrefix ? t(`${keyPrefix}.desc`) : service.description;
 
     return (
         <PremiumTiltCard className="card-premium h-full flex flex-col rounded-[1.25rem]">
@@ -39,10 +57,10 @@ export default function ServiceCard({ service }: { service: Service }) {
                 </div>
 
             <h3 className="text-[14px] md:text-lg font-bold text-dark mb-2 md:mb-3 tracking-tight group-hover:text-purple transition-colors duration-300 line-clamp-2">
-                {service.title}
+                {title}
             </h3>
                 <p className="text-muted leading-relaxed text-[12px] md:text-sm line-clamp-3 md:line-clamp-none">
-                    {service.description}
+                    {description}
                 </p>
             </div>
         </PremiumTiltCard>

@@ -4,38 +4,41 @@ import Image from "next/image";
 import { Star, Quote, BadgeCheck } from "lucide-react";
 import { AnimateOnScroll, StaggerContainer, StaggerItem } from "./animations";
 import PremiumTiltCard from "./PremiumTiltCard";
+import { useLanguage } from "@/lib/i18n";
 
 const testimonials = [
     {
         name: "Ahmed Al-Rashidi",
-        role: "Facilities Director",
+        roleKey: "testimonials.ahmed.role",
         company: "Saudi Investment Bank",
         image: "/images/clients/ahmed.webp",
         rating: 5,
-        text: "AL-JUMERAH delivered an exceptional HVAC overhaul for our headquarters. Their professionalism and attention to detail exceeded our expectations. The system runs flawlessly.",
+        textKey: "testimonials.ahmed.text",
         verified: true,
     },
     {
         name: "Mohammed Al-Qahtani",
-        role: "Project Manager",
+        roleKey: "testimonials.mohammed.role",
         company: "Al Rajhi Real Estate",
         image: "/images/clients/mohammed.webp",
         rating: 5,
-        text: "We've partnered with AL-JUMERAH on multiple large-scale projects. Their team consistently delivers on time, within budget, and with outstanding quality.",
+        textKey: "testimonials.mohammed.text",
         verified: true,
     },
     {
         name: "Khalid Al-Dosari",
-        role: "Operations Manager",
+        roleKey: "testimonials.khalid.role",
         company: "King Saud University",
         image: "/images/clients/khalid.webp",
         rating: 5,
-        text: "From consultation to commissioning, AL-JUMERAH handled everything with precision. Their maintenance support has been reliable for over 3 years now.",
+        textKey: "testimonials.khalid.text",
         verified: true,
     },
 ];
 
 export default function TestimonialSection() {
+    const { t } = useLanguage();
+
     return (
         <section className="py-16 md:py-24 px-4 md:px-6 bg-slate-50 relative overflow-hidden">
             {/* Subtle background accent */}
@@ -45,20 +48,20 @@ export default function TestimonialSection() {
                 {/* Section header */}
                 <AnimateOnScroll animation="fade-up" duration={0.5}>
                     <div className="text-center mb-14">
-                        <span className="pill-badge">Client Testimonials</span>
+                        <span className="pill-badge">{t("testimonials.badge")}</span>
                         <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold mt-4 tracking-tight leading-tight text-dark">
-                            Trusted by Industry Leaders
+                            {t("testimonials.title")}
                         </h2>
                         <p className="mt-4 max-w-xl mx-auto text-base leading-relaxed text-muted">
-                            Hear from the organizations that rely on our expertise for their critical HVAC infrastructure.
+                            {t("testimonials.desc")}
                         </p>
                     </div>
                 </AnimateOnScroll>
 
                 {/* Testimonial cards grid */}
                 <StaggerContainer className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-                    {testimonials.map((t) => (
-                        <StaggerItem key={t.name}>
+                    {testimonials.map((tItem) => (
+                        <StaggerItem key={tItem.name}>
                             <PremiumTiltCard className="group card-premium h-full flex flex-col rounded-[1.25rem]">
                                 <div className="p-4 md:p-7 flex flex-col items-start flex-1 w-full h-full relative z-10 transition-colors duration-500 hover:bg-white/5">
                                     {/* Quote icon */}
@@ -68,14 +71,14 @@ export default function TestimonialSection() {
 
                                 {/* Stars */}
                                 <div className="flex items-center gap-0.5 mb-3 md:mb-4">
-                                    {[...Array(t.rating)].map((_, i) => (
+                                    {[...Array(tItem.rating)].map((_, i) => (
                                         <Star key={i} size={12} className="fill-amber-400 text-amber-400 md:w-3.5 md:h-3.5" />
                                     ))}
                                 </div>
 
                                 {/* Testimonial text */}
                                 <p className="text-[11px] md:text-[15px] leading-relaxed text-muted mb-4 md:mb-6 line-clamp-4 md:line-clamp-none flex-1">
-                                    &ldquo;{t.text}&rdquo;
+                                    &ldquo;{t(tItem.textKey)}&rdquo;
                                 </p>
 
                                 {/* Divider */}
@@ -89,15 +92,15 @@ export default function TestimonialSection() {
                                             className="w-8 h-8 md:w-11 md:h-11 rounded-full overflow-hidden ring-2 ring-lavender-dark/40 ring-offset-1 md:ring-offset-2 ring-offset-white"
                                         >
                                             <Image
-                                                src={t.image}
-                                                alt={t.name}
+                                                src={tItem.image}
+                                                alt={tItem.name}
                                                 width={44}
                                                 height={44}
                                                 className="object-cover w-full h-full"
                                             />
                                         </div>
                                         {/* Verified badge */}
-                                        {t.verified && (
+                                        {tItem.verified && (
                                             <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 md:w-4.5 md:h-4.5">
                                                 <BadgeCheck size={14} className="text-purple fill-lavender md:w-4 md:h-4" />
                                             </div>
@@ -108,11 +111,11 @@ export default function TestimonialSection() {
                                     <div className="min-w-0">
                                         <div className="flex items-center gap-1.5">
                                             <p className="text-[11px] md:text-[13px] font-semibold text-dark tracking-tight truncate">
-                                                {t.name}
+                                                {tItem.name}
                                             </p>
                                         </div>
                                         <p className="text-[9px] md:text-[11px] text-muted truncate">
-                                            {t.role} <span className="hidden md:inline">· {t.company}</span>
+                                            {t(tItem.roleKey)} <span className="hidden md:inline">· {tItem.company}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -126,14 +129,14 @@ export default function TestimonialSection() {
                 <AnimateOnScroll animation="fade-up" delay={0.3}>
                     <div className="flex items-center justify-center gap-6 mt-12 text-muted">
                         <div className="flex -space-x-2.5">
-                            {testimonials.map((t) => (
+                            {testimonials.map((tItem) => (
                                 <div
-                                    key={t.name}
+                                    key={tItem.name}
                                     className="w-8 h-8 rounded-full overflow-hidden border-2 border-white"
                                 >
                                     <Image
-                                        src={t.image}
-                                        alt={t.name}
+                                        src={tItem.image}
+                                        alt={tItem.name}
                                         width={32}
                                         height={32}
                                         className="object-cover w-full h-full"
@@ -148,7 +151,7 @@ export default function TestimonialSection() {
                                 ))}
                             </div>
                             <span className="text-xs font-medium text-dark/60 tracking-wide">
-                                4.9/5 from 100+ clients
+                                {t("testimonials.ratingLine")}
                             </span>
                         </div>
                     </div>

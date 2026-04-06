@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { Send, CheckCircle } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
 
 export default function ContactForm() {
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const { t } = useLanguage();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,15 +24,15 @@ export default function ContactForm() {
                 <div className="w-20 h-20 mx-auto mb-6 bg-lavender rounded-full flex items-center justify-center">
                     <CheckCircle className="w-10 h-10 text-purple" />
                 </div>
-                <h3 className="text-2xl font-bold text-dark mb-2">Thank You!</h3>
+                <h3 className="text-2xl font-bold text-dark mb-2">{t("form.thankYou")}</h3>
                 <p className="text-muted text-lg">
-                    We&apos;ve received your request. Our team will get back to you within 24 hours.
+                    {t("form.received")}
                 </p>
                 <button
                     onClick={() => setSubmitted(false)}
                     className="mt-6 text-purple hover:text-purple-dark font-semibold text-sm transition-colors"
                 >
-                    Send another message →
+                    {t("form.sendAnother")}
                 </button>
             </div>
         );
@@ -42,85 +44,85 @@ export default function ContactForm() {
             className="bg-white rounded-2xl p-8 md:p-10 border border-border"
         >
             <h3 className="text-2xl font-bold text-dark mb-2 tracking-tight">
-                Request a Quote
+                {t("form.title")}
             </h3>
             <p className="text-muted mb-8 text-sm">
-                Fill out the form below and our team will respond within 24 hours.
+                {t("form.subtitle")}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                     <label htmlFor="name" className="block text-sm font-semibold text-dark mb-2">
-                        Full Name *
+                        {t("form.fullName")}
                     </label>
                     <input
                         id="name"
                         name="name"
                         type="text"
                         required
-                        placeholder="Your name"
+                        placeholder={t("form.namePlaceholder")}
                         className="w-full px-4 py-3 rounded-xl bg-lavender-light border border-border text-dark placeholder:text-muted-light focus:outline-none focus:ring-2 focus:ring-purple/30 focus:border-purple transition-all text-sm"
                     />
                 </div>
 
                 <div>
                     <label htmlFor="email" className="block text-sm font-semibold text-dark mb-2">
-                        Email Address *
+                        {t("form.emailLabel")}
                     </label>
                     <input
                         id="email"
                         name="email"
                         type="email"
                         required
-                        placeholder="your@email.com"
+                        placeholder={t("form.emailPlaceholder")}
                         className="w-full px-4 py-3 rounded-xl bg-lavender-light border border-border text-dark placeholder:text-muted-light focus:outline-none focus:ring-2 focus:ring-purple/30 focus:border-purple transition-all text-sm"
                     />
                 </div>
 
                 <div>
                     <label htmlFor="phone" className="block text-sm font-semibold text-dark mb-2">
-                        Phone Number
+                        {t("form.phoneLabel")}
                     </label>
                     <input
                         id="phone"
                         name="phone"
                         type="tel"
-                        placeholder="+966 5XX XXX XXXX"
+                        placeholder={t("form.phonePlaceholder")}
                         className="w-full px-4 py-3 rounded-xl bg-lavender-light border border-border text-dark placeholder:text-muted-light focus:outline-none focus:ring-2 focus:ring-purple/30 focus:border-purple transition-all text-sm"
                     />
                 </div>
 
                 <div>
                     <label htmlFor="service" className="block text-sm font-semibold text-dark mb-2">
-                        Service Required
+                        {t("form.serviceLabel")}
                     </label>
                     <select
                         id="service"
                         name="service"
                         className="w-full px-4 py-3 rounded-xl bg-lavender-light border border-border text-dark focus:outline-none focus:ring-2 focus:ring-purple/30 focus:border-purple transition-all text-sm appearance-none"
                     >
-                        <option value="">Select a service</option>
-                        <option value="chiller">Air Cooled Chiller</option>
-                        <option value="ahu">Air Handling Unit (AHU)</option>
-                        <option value="ducted">Ducted Concealed</option>
-                        <option value="vrv">VRV / VRF Systems</option>
-                        <option value="package">Package Unit</option>
-                        <option value="exhaust">Exhaust Fan & Ventilation</option>
-                        <option value="other">Other</option>
+                        <option value="">{t("form.selectService")}</option>
+                        <option value="chiller">{t("footer.airCooledChiller")}</option>
+                        <option value="ahu">{t("footer.ahu")}</option>
+                        <option value="ducted">{t("footer.ductedConcealed")}</option>
+                        <option value="vrv">{t("footer.vrvVrf")}</option>
+                        <option value="package">{t("footer.packageUnit")}</option>
+                        <option value="exhaust">{t("footer.exhaustVent")}</option>
+                        <option value="other">{t("form.other")}</option>
                     </select>
                 </div>
             </div>
 
             <div className="mt-5">
                 <label htmlFor="message" className="block text-sm font-semibold text-dark mb-2">
-                    Project Details *
+                    {t("form.detailsLabel")}
                 </label>
                 <textarea
                     id="message"
                     name="message"
                     required
                     rows={5}
-                    placeholder="Tell us about your project, location, and requirements..."
+                    placeholder={t("form.detailsPlaceholder")}
                     className="w-full px-4 py-3 rounded-xl bg-lavender-light border border-border text-dark placeholder:text-muted-light focus:outline-none focus:ring-2 focus:ring-purple/30 focus:border-purple transition-all text-sm resize-none"
                 />
             </div>
@@ -133,12 +135,12 @@ export default function ContactForm() {
                 {loading ? (
                     <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending...
+                        {t("form.sending")}
                     </>
                 ) : (
                     <>
                         <Send size={18} />
-                        Send Request
+                        {t("form.send")}
                     </>
                 )}
             </button>

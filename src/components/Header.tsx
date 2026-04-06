@@ -5,10 +5,14 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
+import { useLanguage } from "@/lib/i18n";
+
+const NAV_KEYS = ["nav.home", "nav.about", "nav.services", "nav.projects", "nav.contact"] as const;
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const { t, toggleLocale, locale } = useLanguage();
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -56,19 +60,27 @@ export default function Header() {
 
                         {/* Desktop nav links — centered */}
                         <div className="hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
-                            {NAV_LINKS.map((link) => (
+                            {NAV_LINKS.map((link, i) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
                                     className="text-[#191919] hover:text-[#6B46FF] text-[15px] font-medium transition-colors duration-200"
                                 >
-                                    {link.label}
+                                    {t(NAV_KEYS[i])}
                                 </Link>
                             ))}
                         </div>
 
                         {/* Desktop buttons — right */}
                         <div className="hidden lg:flex items-center gap-2.5 shrink-0">
+                            {/* Language toggle */}
+                            <button
+                                onClick={toggleLocale}
+                                className="text-[#191919] text-[13px] font-semibold px-4 py-[8px] bg-white/80 hover:bg-lavender transition-colors rounded-full border border-[#EDEDED]"
+                                aria-label="Toggle language"
+                            >
+                                {t("lang.arabic")}
+                            </button>
                             <Link
                                 href="/about"
                                 className="text-[#191919] text-[14px] font-medium px-5 py-[9px] bg-white hover:bg-gray-50 transition-colors"
@@ -77,7 +89,7 @@ export default function Header() {
                                     border: "1px solid #EDEDED",
                                 }}
                             >
-                                About Us
+                                {t("nav.aboutUs")}
                             </Link>
                             <Link
                                 href="/contact"
@@ -87,22 +99,31 @@ export default function Header() {
                                     background: "linear-gradient(299deg, #A58FFF 0%, #3300FF 55%, #A58FFF 100%)",
                                 }}
                             >
-                                Get a Quote
+                                {t("nav.getQuote")}
                             </Link>
                         </div>
 
                         {/* Mobile menu button — square grid icon like Vaulta */}
-                        <button
-                            onClick={() => setIsOpen(true)}
-                            className="lg:hidden text-[#191919] p-1.5 -mr-1"
-                            aria-label="Open menu"
-                        >
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                                <line x1="3" y1="6" x2="21" y2="6" />
-                                <line x1="3" y1="12" x2="21" y2="12" />
-                                <line x1="3" y1="18" x2="21" y2="18" />
-                            </svg>
-                        </button>
+                        <div className="lg:hidden flex items-center gap-2">
+                            <button
+                                onClick={toggleLocale}
+                                className="text-[#191919] text-[11px] font-semibold px-3 py-[6px] bg-white/80 hover:bg-lavender transition-colors rounded-full border border-[#EDEDED]"
+                                aria-label="Toggle language"
+                            >
+                                {t("lang.arabic")}
+                            </button>
+                            <button
+                                onClick={() => setIsOpen(true)}
+                                className="text-[#191919] p-1.5 -mr-1"
+                                aria-label="Open menu"
+                            >
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                    <line x1="3" y1="6" x2="21" y2="6" />
+                                    <line x1="3" y1="12" x2="21" y2="12" />
+                                    <line x1="3" y1="18" x2="21" y2="18" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -152,14 +173,14 @@ export default function Header() {
 
                     {/* Nav links — stacked */}
                     <nav className="px-6 pt-4 flex flex-col">
-                        {NAV_LINKS.map((link) => (
+                        {NAV_LINKS.map((link, i) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
                                 className="text-[#191919] text-[17px] font-medium py-4 border-b border-[#F0F0F0] transition-colors hover:text-[#6B46FF]"
                             >
-                                {link.label}
+                                {t(NAV_KEYS[i])}
                             </Link>
                         ))}
 
@@ -174,7 +195,7 @@ export default function Header() {
                                     border: "1px solid #EDEDED",
                                 }}
                             >
-                                About Us
+                                {t("nav.aboutUs")}
                             </Link>
                             <Link
                                 href="/contact"
@@ -185,7 +206,7 @@ export default function Header() {
                                     background: "linear-gradient(299deg, #A58FFF 0%, #3300FF 55%, #A58FFF 100%)",
                                 }}
                             >
-                                Get a Quote
+                                {t("nav.getQuote")}
                             </Link>
                         </div>
                     </nav>

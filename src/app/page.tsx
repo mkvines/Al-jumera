@@ -21,42 +21,20 @@ import {
   Zap,
 } from "lucide-react";
 import { StaggerContainer, StaggerItem, AnimateOnScroll } from "@/components/animations";
+import { useLanguage } from "@/lib/i18n";
 
-const whyChooseUs = [
-  {
-    icon: Award,
-    title: "25+ Years of Expertise",
-    desc: "Decades of proven track record delivering complex HVAC projects across Saudi Arabia.",
-  },
-  {
-    icon: Users,
-    title: "Professional Team",
-    desc: "Certified engineers and technicians trained on the latest HVAC technologies and best practices.",
-  },
-  {
-    icon: Cpu,
-    title: "Global Brand Expertise",
-    desc: "Authorized specialists for TRANE, DAIKIN, Carrier, LG, Gree, YORK, and Zamil systems.",
-  },
-  {
-    icon: Shield,
-    title: "Quality & Safety First",
-    desc: "Rigorous quality control and full compliance with Saudi safety regulations on every project.",
-  },
-  {
-    icon: HardHat,
-    title: "Full Manpower & Resources",
-    desc: "In-house teams with their own tools, transport, and equipment — no subcontractor delays.",
-  },
-  {
-    icon: Zap,
-    title: "End-to-End Service",
-    desc: "From initial consultation and design through installation, commissioning, and long-term maintenance.",
-  },
+const whyChooseUsKeys = [
+  { icon: Award, titleKey: "why.expertise.title", descKey: "why.expertise.desc" },
+  { icon: Users, titleKey: "why.team.title", descKey: "why.team.desc" },
+  { icon: Cpu, titleKey: "why.brands.title", descKey: "why.brands.desc" },
+  { icon: Shield, titleKey: "why.quality.title", descKey: "why.quality.desc" },
+  { icon: HardHat, titleKey: "why.manpower.title", descKey: "why.manpower.desc" },
+  { icon: Zap, titleKey: "why.endToEnd.title", descKey: "why.endToEnd.desc" },
 ];
 
 export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured);
+  const { t, locale } = useLanguage();
 
   return (
     <>
@@ -69,9 +47,9 @@ export default function HomePage() {
         <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-purple-100/40 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10">
           <SectionHeader
-            label="What We Do"
-            title="Our HVAC Services"
-            description="Comprehensive climate control solutions — from precision installation to ongoing maintenance."
+            label={t("home.services.label")}
+            title={t("home.services.title")}
+            description={t("home.services.desc")}
           />
           <StaggerContainer className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {services.map((service) => (
@@ -86,10 +64,10 @@ export default function HomePage() {
                 href="/services"
                 className="inline-flex items-center gap-2 text-purple hover:text-purple-dark font-semibold text-sm transition-colors group"
               >
-                View All Services
+                {t("home.viewAllServices")}
                 <ArrowRight
                   size={16}
-                  className="group-hover:translate-x-1 transition-transform"
+                  className={`group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform ${locale === "ar" ? "rotate-180" : ""}`}
                 />
               </Link>
             </div>
@@ -105,9 +83,9 @@ export default function HomePage() {
         <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-white/60 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10">
           <SectionHeader
-            label="Our Portfolio"
-            title="Featured Projects"
-            description="Recent installations across Saudi Arabia — from pharmaceutical warehouses to university campuses."
+            label={t("home.projects.label")}
+            title={t("home.projects.title")}
+            description={t("home.projects.desc")}
           />
           <StaggerContainer className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {featuredProjects.map((project) => (
@@ -122,10 +100,10 @@ export default function HomePage() {
                 href="/projects"
                 className="inline-flex items-center gap-2 text-purple hover:text-purple-dark font-semibold text-sm transition-colors group"
               >
-                View All Projects
+                {t("home.viewAllProjects")}
                 <ArrowRight
                   size={16}
-                  className="group-hover:translate-x-1 transition-transform"
+                  className={`group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform ${locale === "ar" ? "rotate-180" : ""}`}
                 />
               </Link>
             </div>
@@ -144,15 +122,15 @@ export default function HomePage() {
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-50/50 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-6xl mx-auto relative z-10">
           <SectionHeader
-            label="Why Us"
-            title="Why Choose AL-JUMERAH ATQAAN"
-            description="We combine decades of HVAC expertise with global brand partnerships to deliver unmatched quality."
+            label={t("home.why.label")}
+            title={t("home.why.title")}
+            description={t("home.why.desc")}
           />
           <StaggerContainer className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-            {whyChooseUs.map((item) => {
+            {whyChooseUsKeys.map((item) => {
               const Icon = item.icon;
               return (
-                <StaggerItem key={item.title}>
+                <StaggerItem key={item.titleKey}>
                   <div className="card-premium p-4 md:p-7 group h-full flex flex-col">
                     <div className="flex flex-col md:flex-row items-start md:gap-5">
                       <div className="w-10 h-10 md:w-12 h-12 bg-lavender group-hover:bg-lavender-dark rounded-xl flex items-center justify-center shrink-0 mb-3 md:mb-0 transition-all duration-300 icon-glow relative">
@@ -160,10 +138,10 @@ export default function HomePage() {
                       </div>
                       <div className="flex-1">
                         <h3 className="text-[13px] md:text-base font-bold text-dark mb-1.5 tracking-tight group-hover:text-purple transition-colors duration-300 line-clamp-2">
-                          {item.title}
+                          {t(item.titleKey)}
                         </h3>
                         <p className="text-muted text-[11px] md:text-sm leading-relaxed line-clamp-3 md:line-clamp-none">
-                          {item.desc}
+                          {t(item.descKey)}
                         </p>
                       </div>
                     </div>

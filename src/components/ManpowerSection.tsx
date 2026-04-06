@@ -17,36 +17,39 @@ import {
     Coffee,
     Eye,
 } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
 
-const managementTeam = [
-    { role: "General Manager", qty: 1, icon: Briefcase },
-    { role: "Sales Manager", qty: 1, icon: TrendingUp },
-    { role: "Project Manager", qty: 1, icon: User },
-    { role: "Project Engineers", subtitle: "HVAC / Fire Fighting / Electrical / Plumbing", qty: 2, icon: Building2 },
-    { role: "Finance Manager", qty: 1, icon: Calculator },
-    { role: "Accountant", qty: 1, icon: FileText },
-    { role: "Office Secretary", qty: 1, icon: FileText },
-    { role: "Site Engineer", qty: 1, icon: HardHat },
-    { role: "Site Supervisor", qty: 3, icon: Users },
+const managementTeamKeys = [
+    { roleKey: "role.generalManager", qty: 1, icon: Briefcase },
+    { roleKey: "role.salesManager", qty: 1, icon: TrendingUp },
+    { roleKey: "role.projectManager", qty: 1, icon: User },
+    { roleKey: "role.projectEngineers", subtitleKey: "role.engSubtitle", qty: 2, icon: Building2 },
+    { roleKey: "role.financeManager", qty: 1, icon: Calculator },
+    { roleKey: "role.accountant", qty: 1, icon: FileText },
+    { roleKey: "role.officeSecretary", qty: 1, icon: FileText },
+    { roleKey: "role.siteEngineer", qty: 1, icon: HardHat },
+    { roleKey: "role.siteSupervisor", qty: 3, icon: Users },
 ];
 
-const technicalTeam = [
-    { role: "A/C Technician – Installation", qty: 2, icon: Wrench },
-    { role: "A/C Technician – Maintenance", qty: 2, icon: Wrench },
-    { role: "Duct Fabrications", qty: 2, icon: Wind },
-    { role: "Duct Erectors", qty: 2, icon: HardHat },
-    { role: "Ducts / Pipe Insulators", qty: 2, icon: Pipette },
-    { role: "Skilled Labors", qty: 4, icon: Shield },
-    { role: "Semi Skilled Labors", qty: 4, icon: Users },
-    { role: "Drivers", qty: 2, icon: Truck },
-    { role: "Office Boy", qty: 1, icon: Coffee },
-    { role: "Watch Man (Guard)", qty: 1, icon: Eye },
+const technicalTeamKeys = [
+    { roleKey: "role.acTechInstall", qty: 2, icon: Wrench },
+    { roleKey: "role.acTechMaint", qty: 2, icon: Wrench },
+    { roleKey: "role.ductFab", qty: 2, icon: Wind },
+    { roleKey: "role.ductErect", qty: 2, icon: HardHat },
+    { roleKey: "role.pipeInsulators", qty: 2, icon: Pipette },
+    { roleKey: "role.skilledLabor", qty: 4, icon: Shield },
+    { roleKey: "role.semiSkilled", qty: 4, icon: Users },
+    { roleKey: "role.drivers", qty: 2, icon: Truck },
+    { roleKey: "role.officeBoy", qty: 1, icon: Coffee },
+    { roleKey: "role.watchMan", qty: 1, icon: Eye },
 ];
 
-const totalManagement = managementTeam.reduce((sum, m) => sum + m.qty, 0);
-const totalTechnical = technicalTeam.reduce((sum, m) => sum + m.qty, 0);
+const totalManagement = managementTeamKeys.reduce((sum, m) => sum + m.qty, 0);
+const totalTechnical = technicalTeamKeys.reduce((sum, m) => sum + m.qty, 0);
 
 export default function ManpowerSection() {
+    const { t } = useLanguage();
+
     return (
         <section className="py-20 px-6 bg-white relative overflow-hidden">
             {/* Decorative */}
@@ -58,32 +61,31 @@ export default function ManpowerSection() {
             <div className="max-w-6xl mx-auto relative z-10">
                 {/* Section Header */}
                 <div className="text-center mb-16">
-                    <span className="pill-badge">Our Workforce</span>
+                    <span className="pill-badge">{t("manpower.badge")}</span>
                     <h2 className="text-3xl md:text-4xl font-bold text-dark mt-4 mb-4 tracking-tight">
-                        Team & Manpower
+                        {t("manpower.title")}
                     </h2>
                     <p className="text-muted max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
-                        A dedicated team of {totalManagement + totalTechnical}+ professionals
-                        — from certified engineers and project managers to skilled technicians and support staff.
+                        {t("manpower.descPrefix")} {totalManagement + totalTechnical}+ {t("manpower.descSuffix")}
                     </p>
                 </div>
 
                 {/* Summary Stats Bar */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-14">
                     {[
-                        { label: "Management & Office", count: totalManagement, color: "bg-gradient-to-r from-dark to-dark-light" },
-                        { label: "Technical Manpower", count: totalTechnical, color: "bg-gradient-to-r from-purple to-purple-light" },
-                        { label: "Total Workforce", count: totalManagement + totalTechnical, color: "bg-gradient-to-r from-purple-dark to-purple" },
+                        { labelKey: "manpower.mgmtOffice", count: totalManagement, color: "bg-gradient-to-r from-dark to-dark-light" },
+                        { labelKey: "manpower.techManpower", count: totalTechnical, color: "bg-gradient-to-r from-purple to-purple-light" },
+                        { labelKey: "manpower.totalWorkforce", count: totalManagement + totalTechnical, color: "bg-gradient-to-r from-purple-dark to-purple" },
                     ].map((stat) => (
                         <div
-                            key={stat.label}
+                            key={stat.labelKey}
                             className="relative rounded-2xl p-6 text-white overflow-hidden group"
                         >
                             <div className={`absolute inset-0 ${stat.color} transition-all duration-500`} />
                             <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
                             <div className="relative z-10">
                                 <p className="text-3xl md:text-4xl font-bold mb-1">{stat.count}+</p>
-                                <p className="text-white/75 text-sm font-medium">{stat.label}</p>
+                                <p className="text-white/75 text-sm font-medium">{t(stat.labelKey)}</p>
                             </div>
                         </div>
                     ))}
@@ -99,16 +101,16 @@ export default function ManpowerSection() {
                             </div>
                             <div>
                                 <h3 className="text-white font-bold text-lg tracking-tight">
-                                    Management & Office
+                                    {t("manpower.mgmtOffice")}
                                 </h3>
                                 <p className="text-white/50 text-xs">
-                                    {totalManagement} professionals
+                                    {totalManagement} {t("manpower.professionals")}
                                 </p>
                             </div>
                         </div>
 
                         <div className="divide-y divide-border/60">
-                            {managementTeam.map((member, i) => {
+                            {managementTeamKeys.map((member, i) => {
                                 const Icon = member.icon;
                                 return (
                                     <div
@@ -119,9 +121,9 @@ export default function ManpowerSection() {
                                             <Icon className="w-4 h-4 text-muted group-hover:text-purple transition-colors duration-300" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-dark font-semibold text-sm">{member.role}</p>
-                                            {member.subtitle && (
-                                                <p className="text-muted text-xs mt-0.5 truncate">{member.subtitle}</p>
+                                            <p className="text-dark font-semibold text-sm">{t(member.roleKey)}</p>
+                                            {member.subtitleKey && (
+                                                <p className="text-muted text-xs mt-0.5 truncate">{t(member.subtitleKey)}</p>
                                             )}
                                         </div>
                                         <span className="inline-flex items-center justify-center w-8 h-8 bg-lavender group-hover:bg-purple text-dark group-hover:text-white text-sm font-bold rounded-lg transition-all duration-300">
@@ -141,16 +143,16 @@ export default function ManpowerSection() {
                             </div>
                             <div>
                                 <h3 className="text-white font-bold text-lg tracking-tight">
-                                    Technical Manpower
+                                    {t("manpower.techManpower")}
                                 </h3>
                                 <p className="text-white/50 text-xs">
-                                    {totalTechnical} professionals
+                                    {totalTechnical} {t("manpower.professionals")}
                                 </p>
                             </div>
                         </div>
 
                         <div className="divide-y divide-border/60">
-                            {technicalTeam.map((member, i) => {
+                            {technicalTeamKeys.map((member, i) => {
                                 const Icon = member.icon;
                                 return (
                                     <div
@@ -161,7 +163,7 @@ export default function ManpowerSection() {
                                             <Icon className="w-4 h-4 text-purple/50 group-hover:text-purple transition-colors duration-300" />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-dark font-semibold text-sm">{member.role}</p>
+                                            <p className="text-dark font-semibold text-sm">{t(member.roleKey)}</p>
                                         </div>
                                         <span className="inline-flex items-center justify-center w-8 h-8 bg-purple/5 group-hover:bg-purple text-purple-dark group-hover:text-white text-sm font-bold rounded-lg transition-all duration-300">
                                             {member.qty}

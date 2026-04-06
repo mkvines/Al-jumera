@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Clock, Wrench, MapPin, Star, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import AnimatedHeroText from "./AnimatedHeroText";
+import { useLanguage } from "@/lib/i18n";
 
 /* ── Smooth entrance helpers ── */
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -29,19 +30,19 @@ const fadeIn = (delay: number) => ({
 
 /* ── Slide data ── */
 const slides = [
-    { image: "/hero/hero0.webp", alt: "Al-Jumerah Atqaan HVAC engineers with 25+ years experience and 200+ projects completed", label: "Who We Are", tag: "Featured" },
-    { image: "/hero/ac.webp", alt: "Air conditioning unit installation", label: "AC Installation", tag: "Popular" },
-    { image: "/hero/hero1.webp", alt: "HVAC technicians servicing rooftop condensing unit", label: "Rooftop Service", tag: "Featured" },
-    { image: "/hero/hero2.webp", alt: "Night shift ductwork and AHU installation on site", label: "Duct Installation", tag: "Latest" },
-    { image: "/hero/hero3.webp", alt: "Technician wiring HVAC electrical control panel", label: "Smart Controls", tag: "Expert" },
-    { image: "/hero/hero4.webp", alt: "HVAC engineering team walking through modern facility", label: "Professional Team", tag: "Trusted" },
-    { image: "/hero/hero5.webp", alt: "Engineers and contractors reviewing HVAC blueprints on construction site", label: "Project Planning", tag: "New" },
+    { image: "/hero/hero0.webp", alt: "Al-Jumerah Atqaan HVAC engineers with 25+ years experience and 200+ projects completed", labelKey: "slide.whoWeAre", tagKey: "slide.featured" },
+    { image: "/hero/ac.webp", alt: "Air conditioning unit installation", labelKey: "slide.acInstallation", tagKey: "slide.popular" },
+    { image: "/hero/hero1.webp", alt: "HVAC technicians servicing rooftop condensing unit", labelKey: "slide.rooftopService", tagKey: "slide.featured" },
+    { image: "/hero/hero2.webp", alt: "Night shift ductwork and AHU installation on site", labelKey: "slide.ductInstallation", tagKey: "slide.latest" },
+    { image: "/hero/hero3.webp", alt: "Technician wiring HVAC electrical control panel", labelKey: "slide.smartControls", tagKey: "slide.expert" },
+    { image: "/hero/hero4.webp", alt: "HVAC engineering team walking through modern facility", labelKey: "slide.professionalTeam", tagKey: "slide.trusted" },
+    { image: "/hero/hero5.webp", alt: "Engineers and contractors reviewing HVAC blueprints on construction site", labelKey: "slide.projectPlanning", tagKey: "slide.new" },
 ];
 
-const trustStats = [
-    { icon: Clock, label: "25+ Years Experience" },
-    { icon: Wrench, label: "Installation & Maintenance" },
-    { icon: MapPin, label: "Riyadh · KSA" },
+const trustStatKeys = [
+    { icon: Clock, labelKey: "trust.25years" },
+    { icon: Wrench, labelKey: "trust.installMaint" },
+    { icon: MapPin, labelKey: "trust.location" },
 ];
 
 export default function HeroSlider() {
@@ -49,6 +50,7 @@ export default function HeroSlider() {
     const [isPaused, setIsPaused] = useState(false);
     const touchStartX = useRef(0);
     const touchEndX = useRef(0);
+    const { t } = useLanguage();
 
     const next = useCallback(() => {
         setCurrent((prev) => (prev + 1) % slides.length);
@@ -135,22 +137,22 @@ export default function HeroSlider() {
                                     <Star key={i} size={10} className="fill-purple text-purple" />
                                 ))}
                             </span>
-                            Trusted Partner · Since 1998
+                            {t("hero.trustedPartner")}
                         </span>
                     </motion.div>
 
                     {/* Headline */}
                     <motion.h1 className="text-[1.65rem] leading-[1.15] font-bold text-dark tracking-[-0.02em]" {...fadeUp(0.2)}>
-                        Engineering{" "}
+                        {t("hero.engineering")}{" "}
                         <AnimatedHeroText />
                         <br />
-                        Across{" "}
-                        <span className="serif-accent text-gradient">Saudi Arabia</span>
+                        {t("hero.across")}{" "}
+                        <span className="serif-accent text-gradient">{t("hero.saudiArabia")}</span>
                     </motion.h1>
 
                     {/* Subtext */}
                     <motion.p className="mt-3 text-muted text-[13px] leading-[1.7] max-w-[300px]" {...fadeUp(0.3)}>
-                        From royal palaces to industrial warehouses — world-class HVAC solutions.
+                        {t("hero.subtextMobile")}
                     </motion.p>
 
                     {/* CTA buttons */}
@@ -160,13 +162,13 @@ export default function HeroSlider() {
                             className="text-white text-[13px] font-medium px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity"
                             style={{ background: "linear-gradient(299deg, #A58FFF 0%, #3300FF 55%, #A58FFF 100%)" }}
                         >
-                            Get a Quote
+                            {t("nav.getQuote")}
                         </Link>
                         <Link
                             href="/projects"
                             className="text-dark text-[13px] font-medium px-5 py-2.5 rounded-lg border border-[#EDEDED] hover:border-purple/30 transition-colors"
                         >
-                            Our Projects
+                            {t("hero.ourProjects")}
                         </Link>
                     </motion.div>
                 </div>
@@ -246,7 +248,7 @@ export default function HeroSlider() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/5 z-[1]" />
 
                             {/* Top: Tag + Label badges */}
-                            <div className="absolute top-3.5 left-3.5 z-[2] flex items-center gap-2">
+                            <div className="absolute top-3.5 left-3.5 rtl:left-auto rtl:right-3.5 z-[2] flex items-center gap-2">
                                 <span
                                     className="text-[9px] font-bold text-white uppercase tracking-[0.12em] px-2.5 py-1"
                                     style={{
@@ -254,7 +256,7 @@ export default function HeroSlider() {
                                         borderRadius: "6px",
                                     }}
                                 >
-                                    {slides[current].tag}
+                                    {t(slides[current].tagKey)}
                                 </span>
                                 <span
                                     className="text-[9px] font-semibold text-white/90 px-2.5 py-1 tracking-wider uppercase"
@@ -266,12 +268,12 @@ export default function HeroSlider() {
                                         border: "1px solid rgba(255,255,255,0.18)",
                                     }}
                                 >
-                                    {slides[current].label}
+                                    {t(slides[current].labelKey)}
                                 </span>
                             </div>
 
                             {/* Top right: Play button */}
-                            <div className="absolute top-3.5 right-3.5 z-[2]">
+                            <div className="absolute top-3.5 right-3.5 rtl:right-auto rtl:left-3.5 z-[2]">
                                 <div
                                     className="w-9 h-9 rounded-full flex items-center justify-center"
                                     style={{
@@ -281,7 +283,7 @@ export default function HeroSlider() {
                                         border: "1px solid rgba(255,255,255,0.2)",
                                     }}
                                 >
-                                    <Play size={12} className="text-white/90 ml-0.5" fill="currentColor" />
+                                    <Play size={12} className="text-white/90 ml-0.5 rtl:ml-0 rtl:mr-0.5" fill="currentColor" />
                                 </div>
                             </div>
 
@@ -299,7 +301,7 @@ export default function HeroSlider() {
                                 >
                                     <div>
                                         <p className="text-white font-semibold text-[12px] tracking-tight leading-tight">
-                                            {slides[current].label}
+                                            {t(slides[current].labelKey)}
                                         </p>
                                         <p className="text-white/45 text-[9px] font-medium mt-0.5">
                                             {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
@@ -352,13 +354,13 @@ export default function HeroSlider() {
                             border: "1px solid rgba(229, 231, 235, 0.5)",
                         }}
                     >
-                        {trustStats.map((stat, i) => {
+                        {trustStatKeys.map((stat, i) => {
                             const Icon = stat.icon;
                             return (
                                 <div key={i} className="flex items-center gap-1.5 text-muted">
                                     <Icon size={11} className="text-purple shrink-0" />
                                     <span className="text-[9.5px] font-medium tracking-wide whitespace-nowrap">
-                                        {stat.label}
+                                        {t(stat.labelKey)}
                                     </span>
                                 </div>
                             );
@@ -380,23 +382,22 @@ export default function HeroSlider() {
                                     <Star key={i} size={12} className="fill-purple text-purple" />
                                 ))}
                             </span>
-                            Trusted by Hundreds
+                            {t("hero.trustedByHundreds")}
                         </span>
                     </motion.div>
 
                     {/* Headline */}
                     <motion.h1 className="text-[3rem] xl:text-[3.75rem] leading-[1.08] font-bold text-dark tracking-[-0.025em]" {...fadeUp(0.25)}>
-                        Engineering{" "}
+                        {t("hero.engineering")}{" "}
                         <AnimatedHeroText />
                         <br />
-                        Across{" "}
-                        <span className="serif-accent text-gradient">Saudi Arabia</span>
+                        {t("hero.across")}{" "}
+                        <span className="serif-accent text-gradient">{t("hero.saudiArabia")}</span>
                     </motion.h1>
 
                     {/* Description */}
                     <motion.p className="mt-6 text-muted text-base xl:text-lg max-w-md leading-relaxed" {...fadeUp(0.35)}>
-                        From royal palaces to industrial warehouses — we deliver world-class
-                        HVAC solutions backed by decades of expertise and global brand partnerships.
+                        {t("hero.subtextDesktop")}
                     </motion.p>
 
                     {/* CTA buttons */}
@@ -409,7 +410,7 @@ export default function HeroSlider() {
                                 background: "linear-gradient(299deg, #A58FFF 0%, #3300FF 55%, #A58FFF 100%)",
                             }}
                         >
-                            Request a Quote
+                            {t("hero.requestQuote")}
                         </Link>
                         <Link
                             href="/projects"
@@ -419,13 +420,13 @@ export default function HeroSlider() {
                                 border: "1.3px solid #EDEDED",
                             }}
                         >
-                            View Our Projects
+                            {t("hero.viewProjects")}
                         </Link>
                     </motion.div>
 
                     {/* Trust stats */}
                     <motion.div className="mt-12 flex items-center gap-6" {...fadeUp(0.55)}>
-                        {trustStats.map((stat, i) => {
+                        {trustStatKeys.map((stat, i) => {
                             const Icon = stat.icon;
                             return (
                                 <div key={i} className="flex items-center gap-2 text-muted">
@@ -433,7 +434,7 @@ export default function HeroSlider() {
                                         <Icon size={14} className="text-purple" />
                                     </div>
                                     <span className="text-xs font-medium tracking-wide whitespace-nowrap">
-                                        {stat.label}
+                                        {t(stat.labelKey)}
                                     </span>
                                 </div>
                             );
@@ -513,7 +514,7 @@ export default function HeroSlider() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent z-[1]" />
 
                             {/* Top badges */}
-                            <div className="absolute top-5 left-5 z-[2] flex items-center gap-2">
+                            <div className="absolute top-5 left-5 rtl:left-auto rtl:right-5 z-[2] flex items-center gap-2">
                                 <span
                                     className="text-[9px] font-bold text-white uppercase tracking-[0.15em] px-3 py-1.5"
                                     style={{
@@ -521,7 +522,7 @@ export default function HeroSlider() {
                                         borderRadius: "8px",
                                     }}
                                 >
-                                    {slides[current].tag}
+                                    {t(slides[current].tagKey)}
                                 </span>
                                 <span
                                     className="text-[10px] font-semibold text-white/85 px-3.5 py-1.5 tracking-wider uppercase"
@@ -532,12 +533,12 @@ export default function HeroSlider() {
                                         border: "1px solid rgba(255,255,255,0.12)",
                                     }}
                                 >
-                                    {slides[current].label}
+                                    {t(slides[current].labelKey)}
                                 </span>
                             </div>
 
                             {/* Top right play circle */}
-                            <div className="absolute top-5 right-5 z-[2]">
+                            <div className="absolute top-5 right-5 rtl:right-auto rtl:left-5 z-[2]">
                                 <div
                                     className="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
                                     style={{
@@ -546,7 +547,7 @@ export default function HeroSlider() {
                                         border: "1px solid rgba(255,255,255,0.18)",
                                     }}
                                 >
-                                    <Play size={15} className="text-white/90 ml-0.5" fill="currentColor" />
+                                    <Play size={15} className="text-white/90 ml-0.5 rtl:ml-0 rtl:mr-0.5" fill="currentColor" />
                                 </div>
                             </div>
 
@@ -564,7 +565,7 @@ export default function HeroSlider() {
                                 >
                                     <div>
                                         <p className="text-white font-semibold text-sm tracking-tight">
-                                            {slides[current].label}
+                                            {t(slides[current].labelKey)}
                                         </p>
                                         <p className="text-white/45 text-[11px] font-medium mt-0.5">
                                             {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}

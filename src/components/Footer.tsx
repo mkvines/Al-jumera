@@ -5,8 +5,21 @@ import Image from "next/image";
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import { COMPANY, NAV_LINKS, BRANDS } from "@/lib/constants";
 import { AnimateOnScroll } from "./animations";
+import { useLanguage } from "@/lib/i18n";
+
+const NAV_KEYS = ["nav.home", "nav.about", "nav.services", "nav.projects", "nav.contact"] as const;
+const SERVICE_KEYS = [
+    "footer.airCooledChiller",
+    "footer.ahu",
+    "footer.ductedConcealed",
+    "footer.vrvVrf",
+    "footer.packageUnit",
+    "footer.exhaustVent",
+] as const;
 
 export default function Footer() {
+    const { t } = useLanguage();
+
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -20,7 +33,7 @@ export default function Footer() {
             <div className="border-b border-border/50 relative">
                 <div className="max-w-7xl mx-auto px-6 py-8 relative">
                     <p className="text-center text-[10px] md:text-xs font-semibold text-muted-light mb-6 md:mb-8 tracking-[0.3em] uppercase">
-                        Brands We Specialize In
+                        {t("footer.brandsTitle")}
                     </p>
                     
                     {/* Fade masking for mobile brand strip */}
@@ -66,7 +79,7 @@ export default function Footer() {
                                 />
                             </div>
                             <p className="text-muted text-[13px] md:text-sm leading-relaxed mt-5 md:mt-4 max-w-[280px] md:max-w-none">
-                                {COMPANY.description}
+                                {t("company.description")}
                             </p>
                         </div>
 
@@ -75,16 +88,16 @@ export default function Footer() {
                             {/* Quick Links */}
                             <div>
                                 <h3 className="font-bold text-[11px] md:text-sm tracking-widest uppercase mb-5 md:mb-6 text-dark/40">
-                                    Quick Links
+                                    {t("footer.quickLinks")}
                                 </h3>
                                 <ul className="space-y-3">
-                                    {NAV_LINKS.map((link) => (
+                                    {NAV_LINKS.map((link, i) => (
                                         <li key={link.href}>
                                             <Link
                                                 href={link.href}
-                                                className="text-muted hover:text-purple hover:translate-x-1 text-[13px] md:text-sm transition-all duration-200 inline-block font-medium"
+                                                className="text-muted hover:text-purple hover:translate-x-1 rtl:hover:-translate-x-1 text-[13px] md:text-sm transition-all duration-200 inline-block font-medium"
                                             >
-                                                {link.label}
+                                                {t(NAV_KEYS[i])}
                                             </Link>
                                         </li>
                                     ))}
@@ -94,15 +107,12 @@ export default function Footer() {
                             {/* Services */}
                             <div>
                                 <h3 className="font-bold text-[11px] md:text-sm tracking-widest uppercase mb-5 md:mb-6 text-dark/40">
-                                    Our Services
+                                    {t("footer.ourServices")}
                                 </h3>
                                 <ul className="space-y-3.5 md:space-y-3 text-[13px] md:text-sm text-muted font-medium">
-                                    <li className="hover:text-purple transition-colors cursor-default">Air Cooled Chiller</li>
-                                    <li className="hover:text-purple transition-colors cursor-default">Air Handling Unit (AHU)</li>
-                                    <li className="hover:text-purple transition-colors cursor-default">Ducted Concealed</li>
-                                    <li className="hover:text-purple transition-colors cursor-default">VRV / VRF Systems</li>
-                                    <li className="hover:text-purple transition-colors cursor-default">Package Unit</li>
-                                    <li className="hover:text-purple transition-colors cursor-default">Exhaust Fan & Ventilation</li>
+                                    {SERVICE_KEYS.map((key) => (
+                                        <li key={key} className="hover:text-purple transition-colors cursor-default">{t(key)}</li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
@@ -110,13 +120,13 @@ export default function Footer() {
                         {/* Contact (takes 3 cols on lg) */}
                         <div className="lg:col-span-3">
                             <h3 className="font-bold text-[11px] md:text-sm tracking-widest uppercase mb-5 md:mb-6 text-dark/40">
-                                Contact Us
+                                {t("footer.contactUs")}
                             </h3>
                             <ul className="space-y-4 md:space-y-4">
                                 <li>
                                     <a
                                         href={`mailto:${COMPANY.email1}`}
-                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rounded-lg hover:bg-white/50"
+                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rtl:-mr-2 rtl:ml-0 rounded-lg hover:bg-white/50"
                                     >
                                         <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark group-hover:bg-purple group-hover:border-purple transition-colors">
                                             <Mail size={14} className="text-purple group-hover:text-white transition-colors" />
@@ -127,7 +137,7 @@ export default function Footer() {
                                 <li>
                                     <a
                                         href={`mailto:${COMPANY.email2}`}
-                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rounded-lg hover:bg-white/50"
+                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rtl:-mr-2 rtl:ml-0 rounded-lg hover:bg-white/50"
                                     >
                                         <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark group-hover:bg-purple group-hover:border-purple transition-colors">
                                             <Mail size={14} className="text-purple group-hover:text-white transition-colors" />
@@ -138,7 +148,7 @@ export default function Footer() {
                                 <li>
                                     <a
                                         href={`tel:${COMPANY.phone}`}
-                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rounded-lg hover:bg-white/50"
+                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rtl:-mr-2 rtl:ml-0 rounded-lg hover:bg-white/50"
                                     >
                                         <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark group-hover:bg-purple group-hover:border-purple transition-colors">
                                             <Phone size={14} className="text-purple group-hover:text-white transition-colors" />
@@ -149,7 +159,7 @@ export default function Footer() {
                                 <li>
                                     <a
                                         href={`tel:${COMPANY.phone2}`}
-                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rounded-lg hover:bg-white/50"
+                                        className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted hover:text-purple transition-colors group p-2 -ml-2 rtl:-mr-2 rtl:ml-0 rounded-lg hover:bg-white/50"
                                     >
                                         <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark group-hover:bg-purple group-hover:border-purple transition-colors">
                                             <Phone size={14} className="text-purple group-hover:text-white transition-colors" />
@@ -160,7 +170,7 @@ export default function Footer() {
                                         </div>
                                     </a>
                                 </li>
-                                <li className="flex items-start gap-3 md:gap-3 text-[13px] md:text-sm text-muted p-2 -ml-2 leading-relaxed font-medium">
+                                <li className="flex items-start gap-3 md:gap-3 text-[13px] md:text-sm text-muted p-2 -ml-2 rtl:-mr-2 rtl:ml-0 leading-relaxed font-medium">
                                     <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark mt-0.5">
                                         <MapPin size={14} className="text-purple" />
                                     </div>
@@ -175,12 +185,12 @@ export default function Footer() {
             {/* Copyright */}
             <div className="border-t border-border/50 bg-white/40 backdrop-blur-md">
                 <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col-reverse md:flex-row justify-between items-center gap-5">
-                    <p className="text-muted-light text-[11px] md:text-sm font-medium text-center md:text-left w-full md:w-auto mt-2 md:mt-0">
-                        © {new Date().getFullYear()} {COMPANY.name} All rights reserved.
+                    <p className="text-muted-light text-[11px] md:text-sm font-medium text-center md:text-left rtl:md:text-right w-full md:w-auto mt-2 md:mt-0">
+                        © {new Date().getFullYear()} {COMPANY.name} {t("footer.copyright")}
                     </p>
                     <div className="flex items-center justify-between w-full md:w-auto gap-4 md:gap-6">
                         <p className="text-muted-light/70 text-[10px] md:text-xs font-semibold uppercase tracking-wider">
-                            We Engineer Comfort
+                            {t("footer.tagline")}
                         </p>
                         <button
                             onClick={scrollToTop}

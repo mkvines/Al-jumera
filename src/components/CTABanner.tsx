@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n";
 
 interface CTABannerProps {
     title?: string;
@@ -8,11 +11,17 @@ interface CTABannerProps {
 }
 
 export default function CTABanner({
-    title = "Ready to Start Your Project?",
-    description = "Get a free consultation and quote from our experienced HVAC team. We deliver excellence across Saudi Arabia.",
-    buttonLabel = "Request a Quote",
+    title,
+    description,
+    buttonLabel,
     buttonHref = "/contact",
 }: CTABannerProps) {
+    const { t } = useLanguage();
+
+    const displayTitle = title || t("ctaBanner.title");
+    const displayDesc = description || t("ctaBanner.desc");
+    const displayButton = buttonLabel || t("ctaBanner.button");
+
     return (
         <section className="py-20 px-6">
             <div className="max-w-5xl mx-auto relative overflow-hidden rounded-3xl">
@@ -25,16 +34,16 @@ export default function CTABanner({
                 {/* Content */}
                 <div className="relative z-10 px-8 md:px-16 py-16 md:py-20 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-                        {title}
+                        {displayTitle}
                     </h2>
                     <p className="text-white/60 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-                        {description}
+                        {displayDesc}
                     </p>
                     <Link
                         href={buttonHref}
                         className="inline-block bg-white text-purple hover:text-purple-dark px-10 py-4 rounded-full text-base font-semibold tracking-wide transition-all hover:shadow-xl hover:shadow-white/20 hover:-translate-y-0.5"
                     >
-                        {buttonLabel}
+                        {displayButton}
                     </Link>
                 </div>
             </div>

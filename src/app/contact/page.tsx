@@ -5,14 +5,17 @@ import ContactForm from "@/components/ContactForm";
 import { COMPANY } from "@/lib/constants";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { AnimateOnScroll, StaggerContainer, StaggerItem } from "@/components/animations";
+import { useLanguage } from "@/lib/i18n";
 
 export default function ContactPage() {
+    const { t } = useLanguage();
+
     return (
         <>
             <Hero
-                title="Get in Touch"
-                subtitle="Contact Us"
-                description="Ready to start your project? Reach out for a free consultation and quote."
+                title={t("contact.hero.title")}
+                subtitle={t("contact.hero.subtitle")}
+                description={t("contact.hero.desc")}
             />
 
             <section className="py-20 px-6 bg-lavender-light">
@@ -22,14 +25,12 @@ export default function ContactPage() {
                         <div className="lg:col-span-2 space-y-6">
                             <AnimateOnScroll animation="slide-left" duration={0.6}>
                                 <div>
-                                    <span className="pill-badge">Contact Information</span>
+                                    <span className="pill-badge">{t("contact.info")}</span>
                                     <h2 className="text-2xl md:text-3xl font-bold text-dark mt-4 mb-6 tracking-tight">
-                                        Let&apos;s Discuss Your HVAC Needs
+                                        {t("contact.discuss")}
                                     </h2>
                                     <p className="text-muted leading-relaxed text-sm mb-8">
-                                        Our team is available to answer your questions, provide quotes,
-                                        and schedule site assessments. Reach out through any of the
-                                        channels below.
+                                        {t("contact.infoDesc")}
                                     </p>
                                 </div>
                             </AnimateOnScroll>
@@ -46,7 +47,7 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <div className="font-semibold text-dark text-sm mb-0.5 group-hover:text-purple transition-colors">
-                                                Email Us
+                                                {t("contact.emailUs")}
                                             </div>
                                             <div className="text-muted text-sm">{COMPANY.email1}</div>
                                             <div className="text-muted text-sm">{COMPANY.email2}</div>
@@ -64,7 +65,7 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <div className="font-semibold text-dark text-sm mb-0.5 group-hover:text-purple transition-colors">
-                                                Call Us
+                                                {t("contact.callUs")}
                                             </div>
                                             <div className="text-muted text-sm">{COMPANY.phone}</div>
                                             <div className="text-muted text-sm">{COMPANY.phone2} <span className="text-[11px] opacity-70">({COMPANY.contactName2})</span></div>
@@ -79,7 +80,7 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <div className="font-semibold text-dark text-sm mb-0.5">
-                                                Visit Us
+                                                {t("contact.visitUs")}
                                             </div>
                                             <div className="text-muted text-sm">{COMPANY.address}</div>
                                         </div>
@@ -93,13 +94,13 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <div className="font-semibold text-dark text-sm mb-0.5">
-                                                Working Hours
+                                                {t("contact.workingHours")}
                                             </div>
                                             <div className="text-muted text-sm">
-                                                Sunday – Thursday: 8:00 AM – 6:00 PM
+                                                {t("contact.sunThu")}
                                             </div>
                                             <div className="text-muted text-sm">
-                                                Friday – Saturday: Closed
+                                                {t("contact.friSat")}
                                             </div>
                                         </div>
                                     </div>

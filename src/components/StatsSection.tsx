@@ -2,15 +2,18 @@
 
 import { Award, Clock, Building2, Shield } from "lucide-react";
 import { StaggerContainer, StaggerItem } from "./animations";
+import { useLanguage } from "@/lib/i18n";
 
 const stats = [
-    { icon: Clock, value: "25+", label: "Years Experience", bgColor: "bg-lavender" },
-    { icon: Building2, value: "200+", label: "Projects Completed", bgColor: "bg-purple/5" },
-    { icon: Award, value: "7+", label: "Major Brands", bgColor: "bg-lavender" },
-    { icon: Shield, value: "100%", label: "Client Satisfaction", bgColor: "bg-purple/5" },
+    { icon: Clock, value: "25+", labelKey: "stats.years", bgColor: "bg-lavender" },
+    { icon: Building2, value: "200+", labelKey: "stats.projects", bgColor: "bg-purple/5" },
+    { icon: Award, value: "7+", labelKey: "stats.brands", bgColor: "bg-lavender" },
+    { icon: Shield, value: "100%", labelKey: "stats.satisfaction", bgColor: "bg-purple/5" },
 ];
 
 export default function StatsSection() {
+    const { t } = useLanguage();
+
     return (
         <section className="py-20 px-6 bg-white relative overflow-hidden">
             {/* Subtle background */}
@@ -21,7 +24,7 @@ export default function StatsSection() {
                     {stats.map((stat) => {
                         const Icon = stat.icon;
                         return (
-                            <StaggerItem key={stat.label}>
+                            <StaggerItem key={stat.labelKey}>
                                 <div className="text-center group cursor-default">
                                     <div className={`w-18 h-18 mx-auto mb-5 ${stat.bgColor} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-400 icon-glow relative`}>
                                         <Icon className="w-8 h-8 text-purple transition-transform duration-300 group-hover:scale-110" />
@@ -30,7 +33,7 @@ export default function StatsSection() {
                                         {stat.value}
                                     </div>
                                     <div className="text-muted text-sm font-medium tracking-wide uppercase">
-                                        {stat.label}
+                                        {t(stat.labelKey)}
                                     </div>
                                 </div>
                             </StaggerItem>

@@ -5,53 +5,39 @@ import { motion } from "framer-motion";
 import AnimatedProcessArt from "./AnimatedProcessArt";
 import SectionHeader from "./SectionHeader";
 import { StaggerItem } from "./animations";
+import { useLanguage } from "@/lib/i18n";
 
-const PROCESS_STEPS = [
-    {
-        id: "assess",
-        title: "Assessment & Blueprint",
-        description: "We inspect your facility and draft highly precise structural and thermal load models.",
-    },
-    {
-        id: "design",
-        title: "System Engineering",
-        description: "Our engineers architect optimal ducting and calculate freon flow using advanced thermodynamics.",
-    },
-    {
-        id: "install",
-        title: "Precision Installation",
-        description: "Expert technicians physically map, mount, and weld the hardware securely into your infrastructure.",
-    },
-    {
-        id: "optimize",
-        title: "Commission & Chill",
-        description: "Sensors are tuned, airflow is optimized, and continuous perfect climate control is achieved.",
-    },
+const STEP_KEYS = [
+    { id: "assess", titleKey: "process.assess.title", descKey: "process.assess.desc" },
+    { id: "design", titleKey: "process.design.title", descKey: "process.design.desc" },
+    { id: "install", titleKey: "process.install.title", descKey: "process.install.desc" },
+    { id: "optimize", titleKey: "process.optimize.title", descKey: "process.optimize.desc" },
 ];
 
 export default function ProcessSection() {
     const [activeStep, setActiveStep] = useState(0);
+    const { t } = useLanguage();
 
     return (
         <section className="py-16 md:py-28 px-4 md:px-6 bg-[#FAFAFA] relative overflow-hidden">
             <div className="max-w-7xl mx-auto relative z-10">
                 <SectionHeader
-                    label="How We Work"
-                    title="The Engine Behind the Chill"
-                    description="A highly technical, four-step engineering process that guarantees peak HVAC performance."
+                    label={t("process.label")}
+                    title={t("process.title")}
+                    description={t("process.desc")}
                 />
 
                 <div className="mt-8 md:mt-16 flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
                     
                     {/* LEFT COLUMN: The Hardware Stepper (2x2 grid on mobile, Vertical on desktop) */}
                     <div className="w-full lg:w-[45%] grid grid-cols-2 lg:flex lg:flex-col gap-3 sm:gap-4 lg:gap-6">
-                        {PROCESS_STEPS.map((step, index) => {
+                        {STEP_KEYS.map((step, index) => {
                             const isActive = activeStep === index;
                             return (
                                 <StaggerItem key={step.id} className="w-full">
                                     <button
                                         onClick={() => setActiveStep(index)}
-                                        className="relative w-full text-left outline-none group"
+                                        className="relative w-full text-left rtl:text-right outline-none group"
                                     >
                                         {/* Pulsing "waving" aura for the active button */}
                                         {isActive && (
@@ -87,13 +73,13 @@ export default function ProcessSection() {
                                                 </div>
                                                 
                                                 {/* Text Content */}
-                                                <div className="flex flex-col text-center sm:text-left relative z-10">
+                                                <div className="flex flex-col text-center sm:text-left rtl:sm:text-right relative z-10">
                                                     <h3 className={`font-bold text-xs sm:text-sm lg:text-xl tracking-tight transition-colors drop-shadow-sm ${isActive ? "text-white" : "text-slate-800"}`}>
-                                                        {step.title}
+                                                        {t(step.titleKey)}
                                                     </h3>
                                                     {/* Description only visible on desktop to save space on mobile */}
                                                     <p className={`hidden lg:block mt-1 text-sm leading-relaxed transition-colors ${isActive ? "text-white/90" : "text-slate-500"}`}>
-                                                        {step.description}
+                                                        {t(step.descKey)}
                                                     </p>
                                                 </div>
                                             </div>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Inter_Tight, Instrument_Serif } from "next/font/google";
+import { Inter_Tight, Instrument_Serif, Noto_Kufi_Arabic } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/lib/i18n";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -17,6 +18,13 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
   weight: "400",
   style: "italic",
+});
+
+const notoKufiArabic = Noto_Kufi_Arabic({
+  variable: "--font-arabic",
+  subsets: ["arabic"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -60,12 +68,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${interTight.variable} ${instrumentSerif.variable} antialiased`}
+        className={`${interTight.variable} ${instrumentSerif.variable} ${notoKufiArabic.variable} antialiased`}
         suppressHydrationWarning
       >
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
