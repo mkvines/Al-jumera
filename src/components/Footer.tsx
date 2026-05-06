@@ -35,9 +35,9 @@ export default function Footer() {
                     <p className="text-center text-[10px] md:text-xs font-semibold text-muted-light mb-6 md:mb-8 tracking-[0.3em] uppercase">
                         {t("footer.brandsTitle")}
                     </p>
-                    
+
                     {/* Fade masking for mobile brand strip */}
-                    <div 
+                    <div
                         className="overflow-hidden"
                         style={{
                             WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
@@ -69,16 +69,17 @@ export default function Footer() {
                 <AnimateOnScroll animation="fade-up" duration={0.6}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 md:gap-12 lg:gap-8">
                         {/* Company (takes 4 cols on lg) */}
-                        <div className="lg:col-span-4">
-                            <div className="flex items-center gap-3 mb-8 h-16 md:h-20 w-[240px] md:w-[280px] relative">
-                                <Image 
-                                    src="/images/logo.png" 
-                                    alt="AJ·C Contracting Logo" 
-                                    fill
-                                    className="object-contain object-left scale-150 origin-left"
+                        <div className="lg:col-span-4 text-center md:text-left">
+                            <div className="flex items-center justify-center md:justify-start mb-6">
+                                <Image
+                                    src="/images/logonav.png"
+                                    alt="Al Jumerah Contracting Logo"
+                                    width={500}
+                                    height={250}
+                                    className="h-[120px] md:h-[150px] w-auto object-contain"
                                 />
                             </div>
-                            <p className="text-muted text-[13px] md:text-sm leading-relaxed mt-5 md:mt-4 max-w-[280px] md:max-w-none">
+                            <p className="text-muted text-[13px] md:text-sm leading-relaxed mt-3 md:mt-4 max-w-[320px] md:max-w-none mx-auto md:mx-0">
                                 {t("company.description")}
                             </p>
                         </div>
@@ -170,11 +171,11 @@ export default function Footer() {
                                         </div>
                                     </a>
                                 </li>
-                                <li className="flex items-start gap-3 md:gap-3 text-[13px] md:text-sm text-muted p-2 -ml-2 rtl:-mr-2 rtl:ml-0 leading-relaxed font-medium">
-                                    <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark mt-0.5">
+                                <li className="flex items-center gap-3 md:gap-3 text-[13px] md:text-sm text-muted p-2 -ml-2 rtl:-mr-2 rtl:ml-0 leading-relaxed font-medium">
+                                    <div className="w-8 h-8 rounded-full bg-lavender flex items-center justify-center shrink-0 border border-lavender-dark">
                                         <MapPin size={14} className="text-purple" />
                                     </div>
-                                    <span className="mt-1.5">{COMPANY.address}</span>
+                                    <span>{COMPANY.address}</span>
                                 </li>
                             </ul>
                         </div>

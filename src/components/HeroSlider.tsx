@@ -21,16 +21,9 @@ const fadeScale = (delay: number) => ({
     animate: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.85, delay, ease } },
 });
 
-const fadeIn = (delay: number) => ({
-    initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.6, delay, ease } },
-});
-
-
-
 /* ── Slide data ── */
 const slides = [
-    { image: "/hero/hero0.webp", alt: "Al-Jumerah Atqaan HVAC engineers with 25+ years experience and 200+ projects completed", labelKey: "slide.whoWeAre", tagKey: "slide.featured" },
+    { image: "/hero/hero0.webp", alt: "Al-Jumerah Itqan HVAC engineers with 25+ years experience and 200+ projects completed", labelKey: "slide.whoWeAre", tagKey: "slide.featured" },
     { image: "/hero/ac.webp", alt: "Air conditioning unit installation", labelKey: "slide.acInstallation", tagKey: "slide.popular" },
     { image: "/hero/hero1.webp", alt: "HVAC technicians servicing rooftop condensing unit", labelKey: "slide.rooftopService", tagKey: "slide.featured" },
     { image: "/hero/hero2.webp", alt: "Night shift ductwork and AHU installation on site", labelKey: "slide.ductInstallation", tagKey: "slide.latest" },
@@ -83,6 +76,10 @@ export default function HeroSlider() {
     };
 
     const nextSlide = (current + 1) % slides.length;
+    const prevSlide = (current - 1 + slides.length) % slides.length;
+
+    // Only render current, next, and previous slides for performance
+    const visibleIndices = new Set([current, nextSlide, prevSlide]);
 
     return (
         <section
@@ -94,35 +91,13 @@ export default function HeroSlider() {
             role="region"
             aria-label="Hero slideshow"
             aria-roledescription="carousel"
-            tabIndex={0}
         >
-            {/* ── Premium Light Wave Glow (Overall) ── */}
-            <motion.div
-                initial={{ opacity: 0.3, scale: 1 }}
-                animate={{ 
-                    opacity: [0.3, 0.5, 0.3],
-                    scale: [1, 1.1, 1],
+            {/* ── Static subtle glow (replaces heavy animated motion.divs) ── */}
+            <div
+                className="absolute inset-0 pointer-events-none z-[1]"
+                style={{
+                    background: "radial-gradient(circle at 50% 40%, rgba(107,70,255,0.05) 0%, transparent 60%)",
                 }}
-                transition={{ 
-                    duration: 12, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                }}
-                className="absolute inset-x-0 top-0 h-full w-full bg-[radial-gradient(circle_at_50%_40%,rgba(107,70,255,0.06)_0%,transparent_60%)] pointer-events-none z-[1]"
-            />
-            <motion.div
-                initial={{ opacity: 0.2, scale: 1.1 }}
-                animate={{ 
-                    opacity: [0.2, 0.4, 0.2],
-                    scale: [1.1, 1.2, 1.1],
-                }}
-                transition={{ 
-                    duration: 15, 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                    delay: 2
-                }}
-                className="absolute inset-x-0 bottom-0 h-full w-full bg-[radial-gradient(circle_at_20%_80%,rgba(165,143,255,0.05)_0%,transparent_50%)] pointer-events-none z-[1]"
             />
 
             {/* ════════════════ MOBILE LAYOUT (<lg) ════════════════ */}
@@ -131,7 +106,7 @@ export default function HeroSlider() {
                 <div className="flex flex-col mb-6">
                     {/* Trust badge */}
                     <motion.div className="mb-4" {...fadeUp(0.1)}>
-                        <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-purple bg-lavender/80 backdrop-blur-sm px-4 py-2 rounded-full border border-lavender-dark/50">
+                        <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-purple bg-lavender/80 px-4 py-2 rounded-full border border-lavender-dark/50">
                             <span className="flex items-center gap-0.5">
                                 {[...Array(5)].map((_, i) => (
                                     <Star key={i} size={10} className="fill-purple text-purple" />
@@ -175,42 +150,16 @@ export default function HeroSlider() {
 
                 {/* ── MOBILE PREMIUM IMAGE CARD ── */}
                 <motion.div className="flex flex-col gap-3" {...fadeScale(0.5)}>
-                    {/* Card wrapper with glow */}
+                    {/* Card wrapper */}
                     <div className="relative">
-                        {/* ── Spreading Purple Waves (Mobile) ── */}
-                        {[...Array(2)].map((_, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ 
-                                    scale: [0.8, 2.5], 
-                                    opacity: [0, 0.15, 0] 
-                                }}
-                                transition={{ 
-                                    duration: 4, 
-                                    repeat: Infinity, 
-                                    delay: i * 2,
-                                    ease: "easeOut" 
-                                }}
-                                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full pointer-events-none z-[0]"
-                                style={{
-                                    background: "radial-gradient(circle, rgba(165,143,255,0.25) 0%, transparent 70%)",
-                                    filter: "blur(40px)",
-                                }}
-                            />
-                        ))}
-
-                        {/* Stacked peek card (next slide) */}
+                        {/* Static purple glow (replaces animated waves) */}
                         <div
-                            className="absolute inset-x-2 top-3 bottom-0 overflow-hidden pointer-events-none"
+                            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full pointer-events-none z-[0] opacity-20"
                             style={{
-                                borderRadius: "20px",
-                                opacity: 0.2,
-                                transform: "scale(0.95) translateY(10px)",
+                                background: "radial-gradient(circle, rgba(165,143,255,0.4) 0%, transparent 70%)",
+                                filter: "blur(40px)",
                             }}
-                        >
-                            <Image src={slides[nextSlide].image} alt="" fill className="object-cover" sizes="100vw" />
-                        </div>
+                        />
 
                         {/* ═══ MAIN CARD ═══ */}
                         <div
@@ -218,30 +167,31 @@ export default function HeroSlider() {
                             style={{
                                 borderRadius: "20px",
                                 border: "1.5px solid rgba(255,255,255,0.25)",
-                                boxShadow: "0 20px 50px rgba(51,0,255,0.1), 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.3)",
+                                boxShadow: "0 20px 50px rgba(51,0,255,0.1), 0 8px 24px rgba(0,0,0,0.08)",
                                 aspectRatio: "4 / 3",
                             }}
                         >
-                            {/* Image slides */}
+                            {/* Image slides — only render visible ones */}
                             {slides.map((slide, index) => (
-                                <div
-                                    key={index}
-                                    className="absolute inset-0 transition-all duration-700 ease-in-out"
-                                    style={{
-                                        opacity: index === current ? 1 : 0,
-                                        transform: index === current ? "scale(1)" : "scale(1.06)",
-                                        willChange: 'opacity, transform'
-                                    }}
-                                >
-                                    <Image
-                                        src={slide.image}
-                                        alt={slide.alt}
-                                        fill
-                                        className="object-cover"
-                                        priority={index === 0}
-                                        sizes="(max-width: 1024px) 100vw, 560px"
-                                    />
-                                </div>
+                                visibleIndices.has(index) && (
+                                    <div
+                                        key={index}
+                                        className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                                        style={{
+                                            opacity: index === current ? 1 : 0,
+                                            willChange: 'opacity'
+                                        }}
+                                    >
+                                        <Image
+                                            src={slide.image}
+                                            alt={slide.alt}
+                                            fill
+                                            className="object-cover"
+                                            priority={index === 0}
+                                            sizes="(max-width: 1024px) 100vw, 560px"
+                                        />
+                                    </div>
+                                )
                             ))}
 
                             {/* Dark gradient overlay */}
@@ -262,8 +212,6 @@ export default function HeroSlider() {
                                     className="text-[9px] font-semibold text-white/90 px-2.5 py-1 tracking-wider uppercase"
                                     style={{
                                         background: "rgba(255,255,255,0.12)",
-                                        backdropFilter: "blur(12px)",
-                                        WebkitBackdropFilter: "blur(12px)",
                                         borderRadius: "6px",
                                         border: "1px solid rgba(255,255,255,0.18)",
                                     }}
@@ -278,8 +226,6 @@ export default function HeroSlider() {
                                     className="w-9 h-9 rounded-full flex items-center justify-center"
                                     style={{
                                         background: "rgba(255,255,255,0.14)",
-                                        backdropFilter: "blur(12px)",
-                                        WebkitBackdropFilter: "blur(12px)",
                                         border: "1px solid rgba(255,255,255,0.2)",
                                     }}
                                 >
@@ -287,16 +233,14 @@ export default function HeroSlider() {
                                 </div>
                             </div>
 
-                            {/* Bottom: Glassmorphism info bar */}
+                            {/* Bottom: Info bar (no backdrop-filter for perf) */}
                             <div className="absolute bottom-3 left-3 right-3 z-[2]">
                                 <div
                                     className="px-3.5 py-2.5 flex items-center justify-between"
                                     style={{
-                                        background: "rgba(255,255,255,0.1)",
-                                        backdropFilter: "blur(20px)",
-                                        WebkitBackdropFilter: "blur(20px)",
+                                        background: "rgba(0,0,0,0.45)",
                                         borderRadius: "12px",
-                                        border: "1px solid rgba(255,255,255,0.15)",
+                                        border: "1px solid rgba(255,255,255,0.1)",
                                     }}
                                 >
                                     <div>
@@ -349,7 +293,6 @@ export default function HeroSlider() {
                         className="flex items-center justify-between px-4 py-2.5"
                         style={{
                             background: "rgba(245, 243, 255, 0.6)",
-                            backdropFilter: "blur(8px)",
                             borderRadius: "14px",
                             border: "1px solid rgba(229, 231, 235, 0.5)",
                         }}
@@ -375,7 +318,7 @@ export default function HeroSlider() {
                 <div className="flex-1 max-w-xl py-32">
                     {/* Trust badge */}
                     <motion.div className="mb-8" {...fadeUp(0.15)}>
-                        <span className="inline-flex items-center gap-2.5 text-sm font-medium text-dark bg-lavender/80 backdrop-blur-sm px-5 py-2.5 rounded-full border border-lavender-dark shadow-sm">
+                        <span className="inline-flex items-center gap-2.5 text-sm font-medium text-dark bg-lavender/80 px-5 py-2.5 rounded-full border border-lavender-dark shadow-sm">
                             <span className="flex items-center gap-0.5 text-purple">
                                 4.9
                                 {[...Array(5)].map((_, i) => (
@@ -445,40 +388,14 @@ export default function HeroSlider() {
                 {/* Right: Premium Image Card */}
                 <motion.div className="flex-1 flex items-center justify-center py-32" {...fadeScale(0.4)}>
                     <div className="relative w-full max-w-[560px]">
-                        {/* ── Spreading Purple Waves (Desktop) ── */}
-                        {[...Array(3)].map((_, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ scale: 0.8, opacity: 0 }}
-                                animate={{ 
-                                    scale: [0.8, 3.5], 
-                                    opacity: [0, 0.12, 0] 
-                                }}
-                                transition={{ 
-                                    duration: 6, 
-                                    repeat: Infinity, 
-                                    delay: i * 2,
-                                    ease: "easeOut" 
-                                }}
-                                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] rounded-full pointer-events-none z-[0]"
-                                style={{
-                                    background: "radial-gradient(circle, rgba(165,143,255,0.3) 0%, transparent 70%)",
-                                    filter: "blur(60px)",
-                                }}
-                            />
-                        ))}
-
-                        {/* Stacked peek card */}
+                        {/* Static subtle purple glow (replaces 3 animated waves) */}
                         <div
-                            className="absolute top-3 left-3 right-3 bottom-0 overflow-hidden"
+                            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] rounded-full pointer-events-none z-[0] opacity-15"
                             style={{
-                                borderRadius: "26px",
-                                opacity: 0.2,
-                                transform: "scale(0.95) translateY(12px)",
+                                background: "radial-gradient(circle, rgba(165,143,255,0.4) 0%, transparent 70%)",
+                                filter: "blur(60px)",
                             }}
-                        >
-                            <Image src={slides[nextSlide].image} alt="" fill className="object-cover" sizes="560px" />
-                        </div>
+                        />
 
                         {/* Main card */}
                         <div
@@ -486,28 +403,29 @@ export default function HeroSlider() {
                             style={{
                                 borderRadius: "24px",
                                 border: "1.5px solid rgba(255, 255, 255, 0.35)",
-                                boxShadow: "0 24px 64px rgba(51,0,255,0.1), 0 12px 32px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5)",
+                                boxShadow: "0 24px 64px rgba(51,0,255,0.1), 0 12px 32px rgba(0,0,0,0.06)",
                             }}
                         >
                             {slides.map((slide, index) => (
-                                <div
-                                    key={index}
-                                    className="absolute inset-0 transition-all duration-[900ms] ease-in-out"
-                                    style={{
-                                        opacity: index === current ? 1 : 0,
-                                        transform: index === current ? "scale(1)" : "scale(1.06)",
-                                        willChange: 'opacity, transform'
-                                    }}
-                                >
-                                    <Image
-                                        src={slide.image}
-                                        alt={slide.alt}
-                                        fill
-                                        className="object-cover"
-                                        priority={index === 0}
-                                        sizes="560px"
-                                    />
-                                </div>
+                                visibleIndices.has(index) && (
+                                    <div
+                                        key={index}
+                                        className="absolute inset-0 transition-opacity duration-[900ms] ease-in-out"
+                                        style={{
+                                            opacity: index === current ? 1 : 0,
+                                            willChange: 'opacity'
+                                        }}
+                                    >
+                                        <Image
+                                            src={slide.image}
+                                            alt={slide.alt}
+                                            fill
+                                            className="object-cover"
+                                            priority={index === 0}
+                                            sizes="560px"
+                                        />
+                                    </div>
+                                )
                             ))}
 
                             {/* Gradient overlay */}
@@ -528,7 +446,6 @@ export default function HeroSlider() {
                                     className="text-[10px] font-semibold text-white/85 px-3.5 py-1.5 tracking-wider uppercase"
                                     style={{
                                         background: "rgba(255,255,255,0.1)",
-                                        backdropFilter: "blur(16px)",
                                         borderRadius: "8px",
                                         border: "1px solid rgba(255,255,255,0.12)",
                                     }}
@@ -543,7 +460,6 @@ export default function HeroSlider() {
                                     className="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
                                     style={{
                                         background: "rgba(255,255,255,0.12)",
-                                        backdropFilter: "blur(16px)",
                                         border: "1px solid rgba(255,255,255,0.18)",
                                     }}
                                 >
@@ -556,11 +472,11 @@ export default function HeroSlider() {
                                 <div
                                     className="mx-4 mb-4 px-5 py-3.5 flex items-center justify-between"
                                     style={{
-                                        background: "rgba(255,255,255,0.08)",
-                                        backdropFilter: "blur(24px)",
-                                        WebkitBackdropFilter: "blur(24px)",
+                                        background: "rgba(0,0,0,0.5)",
+                                        backdropFilter: "blur(12px)",
+                                        WebkitBackdropFilter: "blur(12px)",
                                         borderRadius: "16px",
-                                        border: "1px solid rgba(255,255,255,0.12)",
+                                        border: "1px solid rgba(255,255,255,0.1)",
                                     }}
                                 >
                                     <div>

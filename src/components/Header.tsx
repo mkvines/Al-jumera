@@ -44,18 +44,17 @@ export default function Header() {
                         WebkitBackdropFilter: "blur(16px)",
                     }}
                 >
-                    <div className="flex items-center justify-between h-[56px] md:h-[60px] px-4 md:px-6">
+                    <div className="flex items-center justify-between h-[56px] md:h-[62px] px-4 md:px-6">
                         {/* Logo */}
-                        <Link href="/" className="flex items-center gap-2.5 shrink-0 h-full py-1">
-                            <div className="relative h-full w-[160px] md:w-[200px]">
-                                <Image 
-                                    src="/images/logo.png" 
-                                    alt="AJ·C Contracting Logo" 
-                                    fill
-                                    className="object-contain object-left scale-150 origin-left"
-                                    priority
-                                />
-                            </div>
+                        <Link href="/" className="flex items-center shrink-0">
+                            <Image
+                                src="/images/logonav.png"
+                                alt="Al Jumerah Contracting Logo"
+                                width={500}
+                                height={250}
+                                className="h-[40px] md:h-[48px] w-auto object-contain"
+                                priority
+                            />
                         </Link>
 
                         {/* Desktop nav links — centered */}
@@ -147,20 +146,19 @@ export default function Header() {
                     />
 
                     {/* Top bar — logo + close */}
-                    <div className="flex items-center justify-between px-6 h-[72px]">
+                    <div className="flex items-center justify-between px-6 h-[64px]">
                         <Link
                             href="/"
                             onClick={() => setIsOpen(false)}
-                            className="flex items-center gap-2.5 h-full py-2"
+                            className="flex items-center"
                         >
-                            <div className="relative h-full w-[160px]">
-                                <Image 
-                                    src="/images/logo.png" 
-                                    alt="AJ·C Contracting Logo" 
-                                    fill
-                                    className="object-contain object-left scale-150 origin-left"
-                                />
-                            </div>
+                            <Image
+                                src="/images/logonav.png"
+                                alt="Al Jumerah Contracting Logo"
+                                width={500}
+                                height={250}
+                                className="h-[44px] w-auto object-contain"
+                            />
                         </Link>
                         <button
                             onClick={() => setIsOpen(false)}

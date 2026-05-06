@@ -77,7 +77,7 @@ const translations: TranslationDict = {
 
   // ─── HOME PAGE — WHY CHOOSE US ───
   "home.why.label": { en: "Why Us", ar: "لماذا نحن" },
-  "home.why.title": { en: "Why Choose AL-JUMERAH ATQAAN", ar: "لماذا تختار الجميرة إتقان" },
+  "home.why.title": { en: "Why Choose AL-JUMERAH ITQAN", ar: "لماذا تختار الجميرة إتقان" },
   "home.why.desc": {
     en: "We combine decades of HVAC expertise with global brand partnerships to deliver unmatched quality.",
     ar: "نجمع بين عقود من خبرة التكييف وشراكات العلامات التجارية العالمية لتقديم جودة لا مثيل لها.",
@@ -240,7 +240,7 @@ const translations: TranslationDict = {
   },
 
   // ─── ABOUT PAGE ───
-  "about.hero.title": { en: "About AL-JUMERAH ATQAAN", ar: "عن الجميرة إتقان" },
+  "about.hero.title": { en: "About AL-JUMERAH ITQAN", ar: "عن الجميرة إتقان" },
   "about.hero.subtitle": { en: "Our Story", ar: "قصتنا" },
   "about.hero.desc": {
     en: "25+ years of engineering comfort, reliability, and excellence across the Kingdom of Saudi Arabia.",
@@ -249,7 +249,7 @@ const translations: TranslationDict = {
   "about.journey": { en: "Our Journey", ar: "رحلتنا" },
   "about.legacyTitle": { en: "Building a Legacy in HVAC Excellence", ar: "بناء إرث في التميز بالتكييف" },
   "about.p1": {
-    en: "AL-JUMERAH ATQAAN CONTRACTING EST. was founded with a clear mission: to bring world-class air conditioning and HVAC solutions to Saudi Arabia. Over the past 25 years, we have grown from a small local operation into one of the most trusted HVAC contractors in the Kingdom.",
+    en: "AL-JUMERAH ITQAN CONTRACTING EST. was founded with a clear mission: to bring world-class air conditioning and HVAC solutions to Saudi Arabia. Over the past 25 years, we have grown from a small local operation into one of the most trusted HVAC contractors in the Kingdom.",
     ar: "تأسست مؤسسة الجميرة إتقان للمقاولات بمهمة واضحة: تقديم حلول تكييف عالمية المستوى للمملكة العربية السعودية. على مدى 25 عاماً الماضية، نمونا من عملية محلية صغيرة إلى واحد من أكثر مقاولي التكييف موثوقية في المملكة.",
   },
   "about.p2": {
@@ -279,7 +279,7 @@ const translations: TranslationDict = {
     en: "Every project begins with understanding the client's needs. We engineer solutions tailored to the building, climate, and budget — with zero compromise on quality.",
     ar: "يبدأ كل مشروع بفهم احتياجات العميل. نصمم حلولاً مخصصة للمبنى والمناخ والميزانية — بدون أي تنازل عن الجودة.",
   },
-  "about.whyChoose": { en: "Why Choose AL-JUMERAH ATQAAN", ar: "لماذا تختار الجميرة إتقان" },
+  "about.whyChoose": { en: "Why Choose AL-JUMERAH ITQAN", ar: "لماذا تختار الجميرة إتقان" },
   "about.why1": { en: "25+ years of proven HVAC expertise", ar: "+25 سنة من خبرة التكييف المثبتة" },
   "about.why2": { en: "Partnerships with 7+ global brands", ar: "شراكات مع أكثر من 7 علامات تجارية عالمية" },
   "about.why3": { en: "Government & institutional project experience", ar: "خبرة في المشاريع الحكومية والمؤسسية" },

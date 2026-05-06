@@ -28,9 +28,10 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://al-jumerah.com"),
   title: {
-    default: "AL-JUMERAH ATQAAN CONTRACTING | HVAC Excellence in Saudi Arabia",
-    template: "%s | AL-JUMERAH ATQAAN",
+    default: "AL-JUMERAH ITQAN CONTRACTING | HVAC Excellence in Saudi Arabia",
+    template: "%s | AL-JUMERAH ITQAN",
   },
   description:
     "25+ years of HVAC excellence in Saudi Arabia. Specializing in chillers, AHU, VRV/VRF, package units, and ventilation systems. Trusted by major institutions.",
@@ -53,10 +54,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "AL-JUMERAH ATQAAN CONTRACTING EST.",
-    title: "AL-JUMERAH ATQAAN CONTRACTING | HVAC Excellence in Saudi Arabia",
+    siteName: "AL-JUMERAH ITQAN CONTRACTING EST.",
+    title: "AL-JUMERAH ITQAN CONTRACTING | HVAC Excellence in Saudi Arabia",
     description:
       "25+ years of HVAC excellence in Saudi Arabia. Trusted by major institutions and brands.",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AL-JUMERAH ITQAN CONTRACTING Logo",
+      },
+    ],
   },
 };
 

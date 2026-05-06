@@ -1,6 +1,6 @@
 export const COMPANY = {
-    name: "AL-JUMERAH ATQAAN CONTRACTING EST.",
-    shortName: "AL-JUMERAH ATQAAN",
+    name: "AL-JUMERAH ITQAN CONTRACTING EST.",
+    shortName: "AL-JUMERAH ITQAN",
     tagline: "25+ Years of HVAC Excellence",
     description:
         "Specialized in servicing and new installations for Air Conditioning and HVAC systems. Providing quality products and services with a professional team across Saudi Arabia.",

@@ -125,7 +125,7 @@ export default function ContactPage() {
                         allowFullScreen
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
-                        title="AL-JUMERAH ATQAAN Office Location"
+                        title="AL-JUMERAH ITQAN Office Location"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-lavender-light/80 to-transparent pointer-events-none" />
                 </section>
