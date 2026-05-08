@@ -1,9 +1,9 @@
-// Re-export the shared Project type (safe for client components)
-export type { Project } from "@/types/project";
-import type { Project } from "@/types/project";
+import { NextResponse } from "next/server";
+import { setupDatabase, createProject, getProjectCount } from "@/lib/db";
+import { getSession } from "@/lib/auth";
 
-// Static fallback data — used when database is not available
-export const fallbackProjects: Project[] = [
+// Existing projects to seed
+const SEED_PROJECTS = [
   {
     id: "saib-riyadh",
     title: "Saudi Investment Bank (SAIB)",
@@ -13,8 +13,6 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/saib.webp",
     images: ["/images/projects/saib.webp"],
     featured: true,
-    createdAt: "",
-    updatedAt: "",
   },
   {
     id: "prince-fahd-palace",
@@ -25,8 +23,6 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/palace.webp",
     images: ["/images/projects/palace.webp"],
     featured: true,
-    createdAt: "",
-    updatedAt: "",
   },
   {
     id: "ips-khobar",
@@ -37,8 +33,6 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/ips.webp",
     images: ["/images/projects/ips.webp"],
     featured: true,
-    createdAt: "",
-    updatedAt: "",
   },
   {
     id: "al-dawa-warehouse",
@@ -49,8 +43,6 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/aldawa.webp",
     images: ["/images/projects/aldawa.webp"],
     featured: false,
-    createdAt: "",
-    updatedAt: "",
   },
   {
     id: "king-saud-university",
@@ -61,8 +53,6 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/ksu.webp",
     images: ["/images/projects/ksu.webp"],
     featured: false,
-    createdAt: "",
-    updatedAt: "",
   },
   {
     id: "jaguar-showroom",
@@ -73,8 +63,6 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/jaguar.webp",
     images: ["/images/projects/jaguar.webp"],
     featured: false,
-    createdAt: "",
-    updatedAt: "",
   },
   {
     id: "cuticles-saloon",
@@ -85,8 +73,6 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/cuticles.webp",
     images: ["/images/projects/cuticles.webp"],
     featured: false,
-    createdAt: "",
-    updatedAt: "",
   },
   {
     id: "ejada-office",
@@ -97,7 +83,39 @@ export const fallbackProjects: Project[] = [
     image: "/images/projects/ejadah.webp",
     images: ["/images/projects/ejadah.webp"],
     featured: false,
-    createdAt: "",
-    updatedAt: "",
   },
 ];
+
+export async function POST() {
+  try {
+    const authenticated = await getSession();
+    if (!authenticated) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Create table
+    await setupDatabase();
+
+    // Check if already seeded
+    const count = await getProjectCount();
+    if (count > 0) {
+      return NextResponse.json({
+        message: `Database already has ${count} projects. Skipping seed.`,
+        seeded: false,
+      });
+    }
+
+    // Seed projects
+    for (const project of SEED_PROJECTS) {
+      await createProject(project);
+    }
+
+    return NextResponse.json({
+      message: `Successfully seeded ${SEED_PROJECTS.length} projects`,
+      seeded: true,
+    });
+  } catch (error) {
+    console.error("Setup failed:", error);
+    return NextResponse.json({ error: "Setup failed: " + String(error) }, { status: 500 });
+  }
+}

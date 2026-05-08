@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Instrument_Serif, Noto_Kufi_Arabic } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { LanguageProvider } from "@/lib/i18n";
+import LayoutShell from "@/components/LayoutShell";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -80,11 +78,7 @@ export default function RootLayout({
         className={`${interTight.variable} ${instrumentSerif.variable} ${notoKufiArabic.variable} antialiased`}
         suppressHydrationWarning
       >
-        <LanguageProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </LanguageProvider>
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );

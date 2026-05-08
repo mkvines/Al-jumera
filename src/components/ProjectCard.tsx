@@ -1,32 +1,43 @@
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import PremiumTiltCard from "./PremiumTiltCard";
-import type { Project } from "@/data/projects";
+import ImageCarousel from "./ImageCarousel";
+import type { Project } from "@/types/project";
 
 export default function ProjectCard({ project }: { project: Project }) {
+    const hasMultipleImages = project.images && project.images.length > 1;
+
     return (
         <PremiumTiltCard className="card-premium h-full flex flex-col rounded-[1.25rem]">
             {/* Image */}
             <div className="relative h-36 md:h-56 overflow-hidden bg-lavender shrink-0 rounded-t-[1.25rem] z-10 mask-border">
-                <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                />
+                {hasMultipleImages ? (
+                    <ImageCarousel
+                        images={project.images}
+                        alt={project.title}
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    />
+                ) : (
+                    <Image
+                        src={project.image || project.images?.[0] || "/images/og-image.png"}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    />
+                )}
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none z-[2]" />
 
                 {/* Location badge */}
-                <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 flex items-center gap-1 md:gap-1.5 text-white text-[11px] md:text-sm font-medium">
+                <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 flex items-center gap-1 md:gap-1.5 text-white text-[11px] md:text-sm font-medium z-[3]">
                     <MapPin size={12} className="text-purple-light md:w-3.5 md:h-3.5" />
                     <span className="truncate max-w-[120px] md:max-w-none">{project.location}</span>
                 </div>
 
                 {/* Featured badge */}
                 {project.featured && (
-                    <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-purple-gradient text-white text-[9px] md:text-xs font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full tracking-wider uppercase shadow-lg shadow-purple/20">
+                    <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-purple-gradient text-white text-[9px] md:text-xs font-bold px-2 py-1 md:px-3 md:py-1.5 rounded-full tracking-wider uppercase shadow-lg shadow-purple/20 z-[3]">
                         Featured
                     </div>
                 )}
